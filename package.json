@@ -1,0 +1,64 @@
+{
+  "name": "@ministryofjustice/hmpps-connect-dps-shared-items",
+  "version": "1.0.0",
+  "description": "A package to share connect dps functionality across applications",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist/**/*"
+  ],
+  "scripts": {
+    "build": "tsc && npm run copy:assets",
+    "test": "jest",
+    "test:ci": "jest --runInBand --passWithNoTests",
+    "lint": "eslint . --cache --max-warnings 0",
+    "copy:assets": "rm -rf dist/assets && cp -r src/assets dist/assets",
+    "security_audit": "npx audit-ci --config audit-ci.json"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": [
+        "ts-jest",
+        {
+          "isolatedModules": true
+        }
+      ]
+    },
+    "testMatch": [
+      "<rootDir>/**/**/?(*.)(cy|test).{ts,js,jsx,mjs}"
+    ],
+    "testEnvironment": "node",
+    "reporters": [
+      "default",
+      [
+        "jest-junit",
+        {
+          "outputDirectory": "test_results/jest/"
+        }
+      ],
+      [
+        "./node_modules/jest-html-reporter",
+        {
+          "outputPath": "test_results/unit-test-reports.html"
+        }
+      ]
+    ],
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "json",
+      "node",
+      "ts"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/ministryofjustice/hmpps-connect-dps-shared-items-package.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ministryofjustice/hmpps-connect-dps-shared-items-package/issues"
+  },
+  "homepage": "https://github.com/ministryofjustice/hmpps-connect-dps-shared-items-package#readme"
+}
