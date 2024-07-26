@@ -1,0 +1,21 @@
+%status-style {
+  @media screen {
+    justify-content: center;
+    border: 3px solid;
+    padding: 0px 10px;
+    font-size: 16px;
+    text-align: center;
+    line-height: 1;
+    user-select: none;
+    border-radius: 5px
+  }
+
+  @media print {
+    margin-bottom: 0px !important;
+    font-size: 12px;
+    color: black !important;
+    border: none !important;
+    background: none !important;
+    min-width: auto;
+  }
+}

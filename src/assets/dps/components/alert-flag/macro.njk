@@ -1,0 +1,16 @@
+{% macro alertFlag(alertData) %}
+    {% if alertData.href %}
+        <a href="{{ alertData.href }}"
+           class="govuk-link govuk-link--no-underline govuk-link--text-colour {{ alertData.alert.classes }}"
+           {% for attribute, value in alertData.attributes  %}
+             {{ attribute }}="{{ value }}"
+           {% endfor %}
+        >
+            {{ alertData.alert.label }}
+        </a>
+    {% else %}
+        <div class="{{ alertData.alert.classes }}">
+            {{ alertData.alert.label }}
+        </div>
+    {% endif %}
+{% endmacro %}
