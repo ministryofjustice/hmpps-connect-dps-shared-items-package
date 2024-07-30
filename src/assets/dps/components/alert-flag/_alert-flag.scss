@@ -1,14 +1,21 @@
+@use "sass:selector";
+
+@mixin unify-parent($child) {
+  @at-root #{selector.unify(&, $child)} {
+    @content;
+  }
+}
+
 %status-style {
   @media screen {
     justify-content: center;
     border: 3px solid;
-    padding: 5px 10px;
+    padding: 0 10px;
     font-size: 16px;
     text-align: center;
     line-height: 1;
     user-select: none;
     border-radius: 5px;
-    min-height: 30px;
   }
 
   @media print {
@@ -24,14 +31,16 @@
 @mixin alertType($colour) {
   border-color: $colour;
 
-  &:hover, &:focus {
-    text-decoration: none;
-    background-color: $colour;
-    color: white;
-  }
+  @include unify-parent('a') {
+    &:hover, &:focus {
+      text-decoration: none;
+      background-color: $colour;
+      color: white;
+    }
 
-  &:focus {
-    box-shadow: 0 0 0 3px $govuk-focus-colour;
+    &:focus {
+      box-shadow: 0 0 0 3px $govuk-focus-colour;
+    }
   }
 }
 
