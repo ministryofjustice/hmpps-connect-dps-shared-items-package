@@ -1,3 +1,7 @@
-export default () => {
-  return 'Hello, world!'
+import getAlertFlagLabelsForAlerts from './alertFlags/getAlertFlagLabelsForAlerts'
+
+export default {
+  alertFlags: {
+    getAlertFlagLabelsForAlerts,
+  },
 }
