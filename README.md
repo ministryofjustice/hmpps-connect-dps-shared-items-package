@@ -45,4 +45,4 @@ import the component into your nunkucks file:
 
 ## Components:
 
-1. [Alert flag](readme/components/alert-flag)
+1. [Alert flag](readme/components/alert-flag.md)
