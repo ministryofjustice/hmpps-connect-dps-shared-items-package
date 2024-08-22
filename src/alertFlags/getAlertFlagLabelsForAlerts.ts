@@ -123,6 +123,11 @@ export const alertFlagLabels = [
     classes: 'dps-alert-status dps-alert-status--security',
     label: 'Involved in 2024 civil disorder',
   },
+  {
+    alertCodes: ['XVL'],
+    classes: 'dps-alert-status dps-alert-status--security',
+    label: 'Violent',
+  },
 ].sort((a, b) => a.label.localeCompare(b.label))
 
 export default (prisonerAlerts: Alert[]): AlertFlagLabel[] => {
