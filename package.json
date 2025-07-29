@@ -11,9 +11,23 @@
     "build": "tsc && npm run copy:assets",
     "test": "jest --passWithNoTests",
     "test:ci": "jest --runInBand --passWithNoTests",
+    "typecheck": "tsc",
     "lint": "eslint . --cache --max-warnings 0",
     "copy:assets": "rm -rf dist/assets && cp -r src/assets dist/assets",
-    "security_audit": "npx audit-ci --config audit-ci.json"
+    "security_audit": "npx audit-ci --config audit-ci.json",
+    "prepare": "hmpps-precommit-hooks-prepare",
+    "precommit:secrets": "gitleaks git --pre-commit --redact --staged --verbose --config .gitleaks/config.toml",
+    "precommit:lint": "node_modules/.bin/lint-staged",
+    "precommit:verify": "npm run typecheck && npm test"
+  },
+  "lint-staged": {
+    "*.{ts,css}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "*.json": [
+      "prettier --write"
+    ]
   },
   "jest": {
     "transform": {
@@ -63,6 +77,7 @@
   "homepage": "https://github.com/ministryofjustice/hmpps-connect-dps-shared-items-package#readme",
   "devDependencies": {
     "@ministryofjustice/eslint-config-hmpps": "^0.0.1",
+    "@ministryofjustice/hmpps-precommit-hooks": "^0.0.3",
     "@tsconfig/node22": "^22.0.2",
     "@types/jest": "^29.5.14",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
