@@ -131,17 +131,21 @@ export const alertFlagLabels = [
 ].sort((a, b) => a.label.localeCompare(b.label))
 
 export default (prisonerAlerts: Alert[]): AlertFlagLabel[] => {
-  return alertFlagLabels.reduce((acc, flag) => {
-    const alertIds = prisonerAlerts
-      .filter(alert => {
-        const alertsServiceAlert = isAlertsServiceAlert(alert)
-        const alertIsActive = alertsServiceAlert ? alert.isActive : alert.active && !alert.expired
-        const prisonerAlertCode = alertsServiceAlert ? alert.alertCode.code : alert.alertCode
+  const res = alertFlagLabels.reduce(
+    (acc: AlertFlagLabel[], flag: { alertCodes: string[]; classes: string; label: string }) => {
+      const alertIds = prisonerAlerts
+        .filter(alert => {
+          const alertsServiceAlert = isAlertsServiceAlert(alert)
+          const alertIsActive = alertsServiceAlert ? alert.isActive : alert.active && !alert.expired
+          const prisonerAlertCode = alertsServiceAlert ? alert.alertCode.code : alert.alertCode
 
-        return alertIsActive && flag.alertCodes.includes(prisonerAlertCode)
-      })
-      .map(alert => (isAlertsServiceAlert(alert) ? alert.alertUuid : alert.alertCode))
+          return alertIsActive && flag.alertCodes.includes(prisonerAlertCode)
+        })
+        .map(alert => (isAlertsServiceAlert(alert) ? (alert.alertUuid as string) : alert.alertCode))
 
-    return alertIds.length ? [...acc, { ...flag, alertIds }] : acc
-  }, [])
+      return alertIds.length ? [...acc, { ...flag, alertIds }] : acc
+    },
+    [] as AlertFlagLabel[],
+  )
+  return res
 }
