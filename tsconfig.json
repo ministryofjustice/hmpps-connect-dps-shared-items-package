@@ -1,7 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@tsconfig/node22/tsconfig.json",
-  "compileOnSave": true,
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
@@ -13,17 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "declaration": true,
     "module": "ESNext",
-    "moduleResolution": "node",
-    "typeRoots": ["./server/@types", "./node_modules/@types"]
+    "moduleResolution": "node"
   },
-  "exclude": [
-    "node_modules",
-    "assets/**/*.js",
-    "integration_tests",
-    "dist",
-    "cypress.config.ts",
-    "**/*.test.ts",
-    "**/*.test.js"
-  ],
-  "include": ["**/*.js", "**/*.ts"]
+  "include": ["./src/**/*.ts"]
 }

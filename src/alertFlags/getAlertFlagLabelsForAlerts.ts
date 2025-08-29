@@ -1,5 +1,5 @@
-import Alert, { isAlertsServiceAlert } from './types/Alert'
-import AlertFlagLabel from './types/AlertFlagLabel'
+import Alert, { AlertsServiceAlert } from '../types/public/alertFlags/Alert'
+import AlertFlagLabel from '../types/public/alertFlags/AlertFlagLabel'
 
 export const alertFlagLabels = [
   { alertCodes: ['HA'], classes: 'dps-alert-status dps-alert-status--self-harm', label: 'ACCT open' },
@@ -130,8 +130,12 @@ export const alertFlagLabels = [
   },
 ].sort((a, b) => a.label.localeCompare(b.label))
 
-export default (prisonerAlerts: Alert[]): AlertFlagLabel[] => {
-  const res = alertFlagLabels.reduce(
+function isAlertsServiceAlert(alert: Alert): alert is AlertsServiceAlert {
+  return typeof alert.alertCode !== 'string'
+}
+
+export default function getAlertFlagLabelsForAlerts(prisonerAlerts: Alert[]): AlertFlagLabel[] {
+  return alertFlagLabels.reduce(
     (acc: AlertFlagLabel[], flag: { alertCodes: string[]; classes: string; label: string }) => {
       const alertIds = prisonerAlerts
         .filter(alert => {
@@ -147,5 +151,4 @@ export default (prisonerAlerts: Alert[]): AlertFlagLabel[] => {
     },
     [] as AlertFlagLabel[],
   )
-  return res
 }

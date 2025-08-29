@@ -1,7 +1,1 @@
-import getAlertFlagLabelsForAlerts from './alertFlags/getAlertFlagLabelsForAlerts'
-
-export default {
-  alertFlags: {
-    getAlertFlagLabelsForAlerts,
-  },
-}
+export { default as getAlertFlagLabelsForAlerts } from './alertFlags/getAlertFlagLabelsForAlerts'
