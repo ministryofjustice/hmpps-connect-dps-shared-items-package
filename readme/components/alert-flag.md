@@ -44,7 +44,7 @@ The `alertFlag` argument can be obtained by passing in the prisoner's alerts to 
 
   const alertFlagsForPrisoner = dpsSharedItems.alertFlags.getAlertFlagLabelsForAlerts(prisoner.alerts)
 ```
-This expects the alerts to be in one of the three formats [shown in this file](../../src/alertFlags/types/Alert.ts) and returns a list of alerts that can be passed into the nunjucks macro.
+This expects the alerts to be in one of the three formats [shown in this file](../../src/types/public/alertFlags/Alert.ts) and returns a list of alerts that can be passed into the nunjucks macro.
 
 E.g.
 

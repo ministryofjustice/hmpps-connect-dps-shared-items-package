@@ -61,7 +61,3 @@ export interface AlertsServiceAlert {
   activeToLastSetBy?: string
   activeToLastSetByDisplayName?: string
 }
-
-export function isAlertsServiceAlert(alert: Alert): alert is AlertsServiceAlert {
-  return typeof alert.alertCode !== 'string'
-}

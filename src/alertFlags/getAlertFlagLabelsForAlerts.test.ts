@@ -1,5 +1,5 @@
 import mapAlertFlagsFromPrisonerAlerts, { alertFlagLabels } from './getAlertFlagLabelsForAlerts'
-import { AlertsServiceAlert, BasicAlert, PrisonApiAlert } from './types/Alert'
+import { AlertsServiceAlert, BasicAlert, PrisonApiAlert } from '../types/public/alertFlags/Alert'
 
 describe('mapAlertFlagsFromPrisonerAlerts', () => {
   describe('prisoner alerts are basic from prisonerSearch', () => {

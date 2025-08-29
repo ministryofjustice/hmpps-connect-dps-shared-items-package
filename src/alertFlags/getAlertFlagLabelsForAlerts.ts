@@ -1,5 +1,5 @@
-import Alert, { isAlertsServiceAlert } from './types/Alert'
-import AlertFlagLabel from './types/AlertFlagLabel'
+import Alert, { AlertsServiceAlert } from '../types/public/alertFlags/Alert'
+import AlertFlagLabel from '../types/public/alertFlags/AlertFlagLabel'
 
 export const alertFlagLabels = [
   { alertCodes: ['HA'], classes: 'dps-alert-status dps-alert-status--self-harm', label: 'ACCT open' },
@@ -130,18 +130,25 @@ export const alertFlagLabels = [
   },
 ].sort((a, b) => a.label.localeCompare(b.label))
 
-export default (prisonerAlerts: Alert[]): AlertFlagLabel[] => {
-  return alertFlagLabels.reduce((acc, flag) => {
-    const alertIds = prisonerAlerts
-      .filter(alert => {
-        const alertsServiceAlert = isAlertsServiceAlert(alert)
-        const alertIsActive = alertsServiceAlert ? alert.isActive : alert.active && !alert.expired
-        const prisonerAlertCode = alertsServiceAlert ? alert.alertCode.code : alert.alertCode
+function isAlertsServiceAlert(alert: Alert): alert is AlertsServiceAlert {
+  return typeof alert.alertCode !== 'string'
+}
 
-        return alertIsActive && flag.alertCodes.includes(prisonerAlertCode)
-      })
-      .map(alert => (isAlertsServiceAlert(alert) ? alert.alertUuid : alert.alertCode))
+export default function getAlertFlagLabelsForAlerts(prisonerAlerts: Alert[]): AlertFlagLabel[] {
+  return alertFlagLabels.reduce(
+    (acc: AlertFlagLabel[], flag: { alertCodes: string[]; classes: string; label: string }) => {
+      const alertIds = prisonerAlerts
+        .filter(alert => {
+          const alertsServiceAlert = isAlertsServiceAlert(alert)
+          const alertIsActive = alertsServiceAlert ? alert.isActive : alert.active && !alert.expired
+          const prisonerAlertCode = alertsServiceAlert ? alert.alertCode.code : alert.alertCode
 
-    return alertIds.length ? [...acc, { ...flag, alertIds }] : acc
-  }, [])
+          return alertIsActive && flag.alertCodes.includes(prisonerAlertCode)
+        })
+        .map(alert => (isAlertsServiceAlert(alert) ? (alert.alertUuid as string) : alert.alertCode))
+
+      return alertIds.length ? [...acc, { ...flag, alertIds }] : acc
+    },
+    [] as AlertFlagLabel[],
+  )
 }
