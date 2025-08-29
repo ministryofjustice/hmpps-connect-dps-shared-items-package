@@ -1,5 +1,4 @@
-type Alert = BasicAlert | PrisonApiAlert | AlertsServiceAlert
-export default Alert
+export type Alert = BasicAlert | PrisonApiAlert | AlertsServiceAlert
 
 export interface BasicAlert {
   alertType: string
