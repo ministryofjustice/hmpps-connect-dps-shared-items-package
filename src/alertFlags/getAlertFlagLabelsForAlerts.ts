@@ -1,5 +1,5 @@
-import Alert, { AlertsServiceAlert } from '../types/public/alertFlags/Alert'
-import AlertFlagLabel from '../types/public/alertFlags/AlertFlagLabel'
+import { Alert, AlertsServiceAlert } from '../types/public/alertFlags/Alert'
+import { AlertFlagLabel } from '../types/public/alertFlags/AlertFlagLabel'
 
 export const alertFlagLabels = [
   { alertCodes: ['HA'], classes: 'dps-alert-status dps-alert-status--self-harm', label: 'ACCT open' },

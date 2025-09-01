@@ -1,7 +1,7 @@
 {
   "name": "@ministryofjustice/hmpps-connect-dps-shared-items",
   "version": "2.0.0",
-  "description": "A package to share connect dps functionality across applications",
+  "description": "A package to share Connect DPS functionality across applications",
   "main": "./dist/index.cjs",
   "module": "./dist/index.esm.js",
   "types": "./dist/index.d.ts",
@@ -14,6 +14,7 @@
   },
   "scripts": {
     "build": "rollup -c rollup.config.ts --bundleConfigAsCjs && npm run copy:assets",
+    "clean": "rm -rf ./dist/",
     "test": "jest",
     "test:ci": "jest --runInBand",
     "typecheck": "tsc",
