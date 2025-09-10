@@ -13,9 +13,9 @@ The process to publish a change is as follows:
   semantic versioning, see https://semver.org/)
 * Commit the changes, push the branch and raise a PR
 * Once the PR has been merged to `main`, [create a new release](https://github.com/ministryofjustice/hmpps-connect-dps-shared-items-package/releases/new):
-    * Select the `Choose a tag` dropdown and create a new tag entering the new version number (this must start with a `v`, e.g. `v0.0.1`)
-    * Enter a release title with the following format `<version>: <short title>` e.g. `v0.0.1: First Release`
+    * Select the `Choose a tag` dropdown and create a new tag entering the new version number (e.g. `0.0.1`)
+    * Enter the version number as the release title (e.g. `0.0.1`)
     * Enter a more detailed description of the release
     * Click `Publish release`
 
-CircleCI is configured to trigger on the tagged release and publish to NPM.
+GitHub Actions is configured to trigger on the tagged release and publish to NPM.

@@ -1,7 +1,9 @@
 import hmppsConfig from '@ministryofjustice/eslint-config-hmpps'
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
 
-const defaultConfig = hmppsConfig({})
+const defaultConfig = hmppsConfig({
+  extraIgnorePaths: ['src/assets'],
+})
 
 defaultConfig.push({
   plugins: {
