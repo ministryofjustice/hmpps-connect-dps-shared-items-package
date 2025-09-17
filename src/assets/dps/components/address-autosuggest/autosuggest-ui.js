@@ -96,6 +96,11 @@ export class AutosuggestUi {
         this.navigateResults(1)
         break
       }
+      case 27: {
+        // Escape
+        this.clearListbox()
+        break
+      }
       case 13: {
         // Enter
         if (this.highlightedResultIndex !== null) {
