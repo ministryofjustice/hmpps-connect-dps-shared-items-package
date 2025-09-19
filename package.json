@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/hmpps-connect-dps-shared-items",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A package to share Connect DPS functionality across applications",
   "main": "./dist/index.cjs",
   "module": "./dist/index.esm.js",
@@ -71,7 +71,7 @@
     "tslib": "^2.8.1"
   },
   "dependencies": {
-    "@ministryofjustice/hmpps-rest-client": "^0.0.1",
+    "@ministryofjustice/hmpps-rest-client": "^0.0.3",
     "@types/bunyan": "^1.8.11",
     "fuse.js": "^7.1.0",
     "superagent": "^10.2.3"
