@@ -24,7 +24,7 @@
     "security_audit": "npx audit-ci --config audit-ci.json",
     "prepare": "hmpps-precommit-hooks-prepare",
     "precommit:secrets": "gitleaks git --pre-commit --redact --staged --verbose --config .gitleaks/config.toml",
-    "precommit:lint": "node_modules/.bin/lint-staged",
+    "precommit:lint": "lint-staged",
     "precommit:verify": "npm run typecheck && npm test"
   },
   "lint-staged": {
@@ -47,7 +47,7 @@
     "url": "https://github.com/ministryofjustice/hmpps-connect-dps-shared-items-package/issues"
   },
   "devDependencies": {
-    "@ministryofjustice/eslint-config-hmpps": "^0.0.3",
+    "@ministryofjustice/eslint-config-hmpps": "^0.0.5",
     "@ministryofjustice/hmpps-precommit-hooks": "^0.0.3",
     "@rollup/plugin-commonjs": "^28.0.6",
     "@rollup/plugin-multi-entry": "^6.0.1",
@@ -56,9 +56,6 @@
     "@tsconfig/node22": "^22.0.2",
     "@types/jest": "^29.5.14",
     "@types/superagent": "^8.1.9",
-    "@typescript-eslint/eslint-plugin": "^8.41.0",
-    "eslint-import-resolver-typescript": "^4.4.4",
-    "eslint-plugin-no-only-tests": "^3.3.0",
     "govuk-frontend": "^5.11.2",
     "jest": "^29.7.0",
     "jest-html-reporter": "^3.10.2",
