@@ -33,7 +33,7 @@ export default class OsPlacesApiClient {
     try {
       const result = await superagent
         .get(endpoint)
-        .retry(2, (err, res) => {
+        .retry(2, (err, _res) => {
           if (err) this.logger.info(`Retry handler found API error with ${err.code} ${err.message}`)
           return undefined // retry handler only for logging retries, not to influence retry logic
         })
@@ -41,8 +41,9 @@ export default class OsPlacesApiClient {
         .timeout(this.config.timeout)
 
       return result.body
-    } catch (error: any) {
-      throw Error(`Error calling OS Places API: ${error.message}`)
+    } catch (error) {
+      const errorMessage = error && typeof error === 'object' && 'message' in error ? error.message : error
+      throw Error(`Error calling OS Places API: ${errorMessage}`)
     }
   }
 }
