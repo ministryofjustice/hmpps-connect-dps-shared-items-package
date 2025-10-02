@@ -1,7 +1,7 @@
 import { Alert, AlertsServiceAlert } from '../types/public/alertFlags/Alert'
 import { AlertFlagLabel } from '../types/public/alertFlags/AlertFlagLabel'
 
-export const alertFlagLabels = [
+export const alertFlagLabels: AlertFlagLabel[] = [
   { alertCodes: ['HA'], classes: 'dps-alert-status dps-alert-status--self-harm', label: 'ACCT open' },
   {
     alertCodes: ['HA1'],
@@ -134,7 +134,7 @@ function isAlertsServiceAlert(alert: Alert): alert is AlertsServiceAlert {
   return typeof alert.alertCode !== 'string'
 }
 
-export default function getAlertFlagLabelsForAlerts(prisonerAlerts: Alert[]): AlertFlagLabel[] {
+export function getAlertFlagLabelsForAlerts(prisonerAlerts: Alert[]): AlertFlagLabel[] {
   return alertFlagLabels.reduce(
     (acc: AlertFlagLabel[], flag: { alertCodes: string[]; classes: string; label: string }) => {
       const alertIds = prisonerAlerts

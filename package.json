@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/hmpps-connect-dps-shared-items",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "A package to share Connect DPS functionality across applications",
   "main": "./dist/index.cjs",
   "module": "./dist/index.esm.js",

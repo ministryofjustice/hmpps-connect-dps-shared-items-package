@@ -1,4 +1,4 @@
-import mapAlertFlagsFromPrisonerAlerts, { alertFlagLabels } from './getAlertFlagLabelsForAlerts'
+import { alertFlagLabels, getAlertFlagLabelsForAlerts } from './getAlertFlagLabelsForAlerts'
 import { AlertsServiceAlert, BasicAlert, PrisonApiAlert } from '../types/public/alertFlags/Alert'
 
 describe('mapAlertFlagsFromPrisonerAlerts', () => {
@@ -12,7 +12,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
     })
 
     it('should return the corresponding flags for the alerts passed in', () => {
-      const output = mapAlertFlagsFromPrisonerAlerts([getAlert({ alertCode: 'HA1' }), getAlert({ alertCode: 'SA' })])
+      const output = getAlertFlagLabelsForAlerts([getAlert({ alertCode: 'HA1' }), getAlert({ alertCode: 'SA' })])
       expect(output).toEqual([
         {
           alertIds: ['HA1'],
@@ -30,7 +30,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
     })
 
     it('should discard inactive alerts', () => {
-      const output = mapAlertFlagsFromPrisonerAlerts([
+      const output = getAlertFlagLabelsForAlerts([
         getAlert({ alertCode: 'HA1' }),
         getAlert({ alertCode: 'SA', active: false }),
       ])
@@ -45,7 +45,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
     })
 
     it('should discard expired alerts', () => {
-      const output = mapAlertFlagsFromPrisonerAlerts([
+      const output = getAlertFlagLabelsForAlerts([
         getAlert({ alertCode: 'HA1', expired: true }),
         getAlert({ alertCode: 'SA' }),
       ])
@@ -61,7 +61,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
 
     it('should work for all alert flag types', () => {
       const prisonerAlerts = alertFlagLabels.map(({ alertCodes }) => getAlert({ alertCode: alertCodes[0] }))
-      const output = mapAlertFlagsFromPrisonerAlerts(prisonerAlerts)
+      const output = getAlertFlagLabelsForAlerts(prisonerAlerts)
 
       expect(output).toEqual(alertFlagLabels.map(flag => ({ ...flag, alertIds: [flag.alertCodes[0]] })))
     })
@@ -81,7 +81,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
     })
 
     it('should return the corresponding flags for the alerts passed in', () => {
-      const output = mapAlertFlagsFromPrisonerAlerts([getAlert({ alertCode: 'HA1' }), getAlert({ alertCode: 'SA' })])
+      const output = getAlertFlagLabelsForAlerts([getAlert({ alertCode: 'HA1' }), getAlert({ alertCode: 'SA' })])
       expect(output).toEqual([
         {
           alertIds: ['HA1'],
@@ -99,7 +99,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
     })
 
     it('should discard inactive alerts', () => {
-      const output = mapAlertFlagsFromPrisonerAlerts([
+      const output = getAlertFlagLabelsForAlerts([
         getAlert({ alertCode: 'HA1' }),
         getAlert({ alertCode: 'SA', active: false }),
       ])
@@ -114,7 +114,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
     })
 
     it('should discard expired alerts', () => {
-      const output = mapAlertFlagsFromPrisonerAlerts([
+      const output = getAlertFlagLabelsForAlerts([
         getAlert({ alertCode: 'HA1', expired: true }),
         getAlert({ alertCode: 'SA' }),
       ])
@@ -130,7 +130,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
 
     it('should work for all alert flag types', () => {
       const prisonerAlerts = alertFlagLabels.map(({ alertCodes }) => getAlert({ alertCode: alertCodes[0] }))
-      const output = mapAlertFlagsFromPrisonerAlerts(prisonerAlerts)
+      const output = getAlertFlagLabelsForAlerts(prisonerAlerts)
 
       expect(output).toEqual(alertFlagLabels.map(flag => ({ ...flag, alertIds: [flag.alertCodes[0]] })))
     })
@@ -148,7 +148,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
     })
 
     it('should return the corresponding flags for the alerts passed in', () => {
-      const output = mapAlertFlagsFromPrisonerAlerts([
+      const output = getAlertFlagLabelsForAlerts([
         getAlert({ alertCode: { alertTypeCode: '', alertTypeDescription: '', code: 'HA1', description: '' } }),
         getAlert({
           alertUuid: 'SaUuid',
@@ -172,7 +172,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
     })
 
     it('should discard inactive alerts', () => {
-      const output = mapAlertFlagsFromPrisonerAlerts([
+      const output = getAlertFlagLabelsForAlerts([
         getAlert({ alertCode: { alertTypeCode: '', alertTypeDescription: '', code: 'HA1', description: '' } }),
         getAlert({
           alertCode: { alertTypeCode: '', alertTypeDescription: '', code: 'SA', description: '' },
@@ -190,7 +190,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
     })
 
     it('should include all uuids as alertIds for each alertCode', () => {
-      const output = mapAlertFlagsFromPrisonerAlerts([
+      const output = getAlertFlagLabelsForAlerts([
         getAlert({
           alertUuid: 'id1',
           alertCode: { alertTypeCode: '', alertTypeDescription: '', code: 'HA1', description: '' },
@@ -211,7 +211,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
     })
 
     it('should include all uuids as alertIds when multiple alertCodes on flag', () => {
-      const output = mapAlertFlagsFromPrisonerAlerts([
+      const output = getAlertFlagLabelsForAlerts([
         getAlert({
           alertUuid: 'id1',
           alertCode: { alertTypeCode: '', alertTypeDescription: '', code: 'SA', description: '' },
@@ -237,7 +237,7 @@ describe('mapAlertFlagsFromPrisonerAlerts', () => {
           alertCode: { alertTypeCode: '', alertTypeDescription: '', code: alertCodes[0], description: '' },
         }),
       )
-      const output = mapAlertFlagsFromPrisonerAlerts(prisonerAlerts)
+      const output = getAlertFlagLabelsForAlerts(prisonerAlerts)
 
       expect(output).toEqual(alertFlagLabels.map(flag => ({ ...flag, alertIds: ['uuid'] })))
     })
