@@ -37,7 +37,7 @@ Add the `hmpps-connect-dps-shared-items` assets directory to nunjucks configurat
 )
 ```
 
-then import the component into your nunkucks file:
+then import the component into your nunjucks file:
 ```js
 {% from "dps/components/alert-flag/macro.njk" import alertFlag %}
 ```
@@ -49,7 +49,7 @@ Include the package scss within the `index.scss` file. You can either import all
 ```
 or import the specific component scss you are using, e.g:
 ```scss
-  @import 'node_modules/@ministryofjustice/hmpps-connect-dps-shared-items/dist/assets/dps/components/alrt-flag/alert-flag';
+  @import 'node_modules/@ministryofjustice/hmpps-connect-dps-shared-items/dist/assets/dps/components/alert-flag/alert-flag';
 ```
 
 ### Client side javascript

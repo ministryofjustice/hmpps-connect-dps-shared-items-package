@@ -128,6 +128,21 @@ export const alertFlagLabels: AlertFlagLabel[] = [
     classes: 'dps-alert-status dps-alert-status--security',
     label: 'Violent',
   },
+  {
+    alertCodes: ['DOCGM'],
+    classes: 'dps-alert-status dps-alert-status--security',
+    label: 'OCG Nominal (do not share)',
+  },
+  {
+    alertCodes: ['RSS'],
+    classes: 'dps-alert-status dps-alert-status--risk',
+    label: 'Risk to staff',
+  },
+  {
+    alertCodes: ['XCOP'],
+    classes: 'dps-alert-status dps-alert-status--security',
+    label: 'Potential corruptor',
+  },
 ].sort((a, b) => a.label.localeCompare(b.label))
 
 function isAlertsServiceAlert(alert: Alert): alert is AlertsServiceAlert {
