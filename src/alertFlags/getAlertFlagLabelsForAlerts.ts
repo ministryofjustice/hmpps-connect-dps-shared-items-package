@@ -131,7 +131,7 @@ export const alertFlagLabels: AlertFlagLabel[] = [
   {
     alertCodes: ['DOCGM'],
     classes: 'dps-alert-status dps-alert-status--security',
-    label: 'OCG Nominal (do not share)',
+    label: 'OCG nominal (do not share)',
   },
   {
     alertCodes: ['RSS'],
