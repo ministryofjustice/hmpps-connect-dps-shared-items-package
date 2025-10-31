@@ -1,5 +1,5 @@
 import hmppsConfig from '@ministryofjustice/eslint-config-hmpps'
 
 export default hmppsConfig({
-  extraIgnorePaths: ['src/assets'],
+  extraIgnorePaths: ['rollup.config.ts', 'src/assets'],
 })
