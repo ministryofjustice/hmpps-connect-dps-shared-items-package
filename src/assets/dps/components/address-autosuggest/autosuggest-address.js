@@ -52,7 +52,7 @@ export class AutosuggestAddress {
     // Reset any previously selected result:
     this.uprn.value = ''
 
-    return await this.findAddress(query?.replace(/[^A-Z0-9 ]/gi, ''))
+    return await this.findAddress(query?.replace(/[^A-Z0-9-.' ]/gi, ''))
   }
 
   async findAddress(query) {

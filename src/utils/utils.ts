@@ -12,4 +12,9 @@ const properCase = (word: string): string =>
 export const properCaseName = (name: string): string => (isBlank(name) ? '' : name.split('-').map(properCase).join('-'))
 
 export const convertToTitleCase = (sentence: string): string =>
-  isBlank(sentence) ? '' : sentence.split(' ').map(properCaseName).join(' ')
+  isBlank(sentence)
+    ? ''
+    : sentence
+        .split('(') // Handle parentheses
+        .map(subsentence => subsentence.split(' ').map(properCaseName).join(' '))
+        .join('(')

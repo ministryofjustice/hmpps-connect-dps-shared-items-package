@@ -2,6 +2,7 @@ import OsPlacesAddressService from './osPlacesAddressService'
 import OsPlacesApiClient from './osPlacesApiClient'
 import {
   mockOsPlacesAddressQueryEmptyResponse,
+  mockOsPlacesAddressQueryNonPostalResponse,
   mockOsPlacesAddressQueryResponse,
   mockOsPlacesAddressQuerySingleResponse,
 } from './testMocks/osPlacesAddressQueryResponse'
@@ -56,10 +57,28 @@ describe('osPlacesAddressService', () => {
     it('Sanitises post codes before querying the API', async () => {
       osPlacesApiClient.getAddressesByFreeTextQuery = jest.fn(async () => mockOsPlacesAddressQueryResponse)
       await osPlacesAddressService.getAddressesMatchingQuery('petty france sw1H9eA 102')
-      expect(osPlacesApiClient.getAddressesByFreeTextQuery).toHaveBeenCalledWith('petty france SW1H 9EA 102')
+      expect(osPlacesApiClient.getAddressesByFreeTextQuery).toHaveBeenCalledWith('petty france SW1H 9EA 102', {})
     })
 
-    it('should use fuse to remove spurious results', async () => {
+    it('Makes an additional call with replacement search term for known issue search terms', async () => {
+      osPlacesApiClient.getAddressesByFreeTextQuery = jest.fn(async () => mockOsPlacesAddressQueryResponse)
+      await osPlacesAddressService.getAddressesMatchingQuery('amazon office')
+      expect(osPlacesApiClient.getAddressesByFreeTextQuery).toHaveBeenCalledWith('amazon office', {})
+      expect(osPlacesApiClient.getAddressesByFreeTextQuery).toHaveBeenCalledWith('amazon.co.uk office', {})
+    })
+
+    it('Allows query parameters in call to OS Places API to be overridden', async () => {
+      osPlacesApiClient.getAddressesByFreeTextQuery = jest.fn(async () => mockOsPlacesAddressQueryResponse)
+      await osPlacesAddressService.getAddressesMatchingQuery(searchQuery, {
+        osPlacesQueryParamOverrides: { dataset: 'somethingelse' },
+        fuzzyMatchOptionOverrides: {},
+      })
+      expect(osPlacesApiClient.getAddressesByFreeTextQuery).toHaveBeenCalledWith('the road my town', {
+        dataset: 'somethingelse',
+      })
+    })
+
+    it('should use fuzzy matching to remove spurious results', async () => {
       osPlacesApiClient.getAddressesByFreeTextQuery = jest.fn(
         async () =>
           ({
@@ -78,6 +97,24 @@ describe('osPlacesAddressService', () => {
       expect(addresses.length).toEqual(1)
     })
 
+    it('Allows fuzzy matching configuration to be overridden', async () => {
+      osPlacesApiClient.getAddressesByFreeTextQuery = jest.fn(async () => mockOsPlacesAddressQueryResponse)
+      const addresses = await osPlacesAddressService.getAddressesMatchingQuery('1', {
+        osPlacesQueryParamOverrides: {},
+        fuzzyMatchOptionOverrides: { keys: [{ name: 'buildingNumber' }] },
+      })
+      expect(addresses.length).toEqual(1)
+    })
+
+    it('exact matches are highest in the result set', async () => {
+      osPlacesApiClient.getAddressesByFreeTextQuery = jest.fn(async () => mockOsPlacesAddressQueryResponse)
+      const addresses = await osPlacesAddressService.getAddressesMatchingQuery('1 The Road My Town')
+      expect(addresses).toEqual([
+        expect.objectContaining({ buildingNumber: 1 }),
+        expect.objectContaining({ buildingNumber: 2 }),
+      ])
+    })
+
     it('should order by building number if query is a postcode', async () => {
       osPlacesApiClient.getAddressesByFreeTextQuery = jest.fn(async () => mockOsPlacesAddressQueryResponse)
       const addresses = await osPlacesAddressService.getAddressesMatchingQuery('SW1H9EA')
@@ -85,6 +122,12 @@ describe('osPlacesAddressService', () => {
         expect.objectContaining({ buildingNumber: 1 }),
         expect.objectContaining({ buildingNumber: 2 }),
       ])
+    })
+
+    it('should not return addresses that are not postal addresses', async () => {
+      osPlacesApiClient.getAddressesByFreeTextQuery = jest.fn(async () => mockOsPlacesAddressQueryNonPostalResponse)
+      const addresses = await osPlacesAddressService.getAddressesMatchingQuery(searchQuery)
+      expect(addresses.length).toBe(0)
     })
   })
 
@@ -95,7 +138,7 @@ describe('osPlacesAddressService', () => {
       expect(result).toBeNull()
     })
 
-    it('Picks the last result if multiple are returned', async () => {
+    it('Picks the first result if multiple are returned', async () => {
       osPlacesApiClient.getAddressesByUprn = jest.fn(
         async () =>
           ({
@@ -109,7 +152,7 @@ describe('osPlacesAddressService', () => {
 
       const address = await osPlacesAddressService.getAddressByUprn('12345')
 
-      expect(address!.buildingNumber).toEqual(2)
+      expect(address!.buildingNumber).toEqual(1)
     })
 
     it('Maps the returned address correctly', async () => {
