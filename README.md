@@ -1,5 +1,8 @@
 # hmpps-connect-dps-shared-items
 
+[![repo standards badge](https://img.shields.io/badge/endpoint.svg?&style=flat&logo=github&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fhmpps-connect-dps-shared-items-package)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-report/hmpps-connect-dps-shared-items-package "Link to report")
+[![Test, lint & publish](https://github.com/ministryofjustice/hmpps-connect-dps-shared-items-package/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/ministryofjustice/hmpps-connect-dps-shared-items-package/actions/workflows/pipeline.yml)
+
 A library for sharing DPS Components across applications.
 
 ## Contents
@@ -38,7 +41,7 @@ Add the `hmpps-connect-dps-shared-items` assets directory to nunjucks configurat
 ```
 
 then import the component into your nunjucks file:
-```js
+```nunjucks
 {% from "dps/components/alert-flag/macro.njk" import alertFlag %}
 ```
 

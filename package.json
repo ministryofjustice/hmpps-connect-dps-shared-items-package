@@ -10,7 +10,7 @@
     "dist/**/*"
   ],
   "engines": {
-    "node": "20 || 22"
+    "node": "20 || 22 || 24"
   },
   "scripts": {
     "build": "rollup -c rollup.config.ts --bundleConfigAsCjs && npm run copy:assets",
@@ -53,7 +53,7 @@
     "@rollup/plugin-multi-entry": "^6.0.1",
     "@rollup/plugin-node-resolve": "^16.0.1",
     "@rollup/plugin-typescript": "^12.1.4",
-    "@tsconfig/node22": "^22.0.2",
+    "@tsconfig/node24": "^24.0.1",
     "@types/jest": "^29.5.14",
     "@types/superagent": "^8.1.9",
     "govuk-frontend": "^5.11.2",
@@ -68,7 +68,7 @@
     "tslib": "^2.8.1"
   },
   "dependencies": {
-    "@ministryofjustice/hmpps-rest-client": "^0.0.3",
+    "@ministryofjustice/hmpps-rest-client": "^1.0.0",
     "@types/bunyan": "^1.8.11",
     "fuse.js": "^7.1.0",
     "superagent": "^10.2.3"
