@@ -355,9 +355,14 @@ export class AutosuggestUi {
   }
 
   emboldenMatch(string, query) {
-    let reg = new RegExp(this.escapeRegExp(query).split(' ').join('[\\s,]*'), 'gi')
-
-    return string.replace(reg, '<strong>$&</strong>')
+    return this.escapeRegExp(query)
+      .trim()
+      .replace(/\s\s+/g, ' ')
+      .split(' ')
+      .reduce((accumulator, currentValue) => {
+        let reg = new RegExp(`(?<!<)${currentValue}(?![\\w\\s]*>)`, 'gi')
+        return accumulator.replace(reg, '<strong>$&</strong>')
+      }, string)
   }
 
   escapeRegExp(string) {

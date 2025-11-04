@@ -9,26 +9,37 @@ export default class OsPlacesApiClient {
     private readonly config: ApiConfig & { apiKey: string },
   ) {}
 
-  async getAddressesByFreeTextQuery(freeTextQuery: string): Promise<OsPlacesQueryResponse> {
-    const queryParams: Record<string, string> = {
+  async getAddressesByFreeTextQuery(
+    freeTextQuery: string,
+    queryParamOverrides: Record<string, unknown> = {},
+  ): Promise<OsPlacesQueryResponse> {
+    const queryParams: Record<string, unknown> = {
       query: freeTextQuery,
-      lr: 'EN',
       key: this.config.apiKey,
+      lr: 'EN',
+      fq: ['LOGICAL_STATUS_CODE:1', 'LPI_LOGICAL_STATUS_CODE:1'], // only want active addresses
+      dataset: 'LPI', // LPI chosen as default since it appears to perform better, especially for business addresses
+      ...queryParamOverrides,
     }
 
     return this.get<Promise<OsPlacesQueryResponse>>('/find', queryParams)
   }
 
-  async getAddressesByUprn(uprn: string): Promise<OsPlacesQueryResponse> {
+  async getAddressesByUprn(
+    uprn: string,
+    queryParamOverrides: Record<string, unknown> = {},
+  ): Promise<OsPlacesQueryResponse> {
     const queryParams: Record<string, string> = {
       uprn,
       key: this.config.apiKey,
+      dataset: 'DPA,LPI', // Both datasets available for the lookup by UPRN, preference for DPA because of the preferred data structure
+      ...queryParamOverrides,
     }
 
     return this.get<Promise<OsPlacesQueryResponse>>('/uprn', queryParams)
   }
 
-  async get<T>(path: string, query: Record<string, string>): Promise<T> {
+  private async get<T>(path: string, query: Record<string, unknown>): Promise<T> {
     const endpoint = `${this.config.url}${path}`
     try {
       const result = await superagent
