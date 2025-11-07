@@ -1,6 +1,6 @@
 import Fuse, { IFuseOptions } from 'fuse.js'
 import { OsAddress } from '../types/public/addressAutosuggest/osAddress'
-import { convertToTitleCase } from '../utils/utils'
+import { convertToTitleCase, isBlank } from '../utils/utils'
 import OsPlacesApiClient from './osPlacesApiClient'
 import { ConnectDpsComponentLogger } from '../types/public/ConnectDpsComponentLogger'
 import {
@@ -142,6 +142,7 @@ export default class OsPlacesAddressService {
       UPRN,
       ADDRESS,
       DEPENDENT_LOCALITY,
+      ORGANISATION_NAME,
       SUB_BUILDING_NAME,
       BUILDING_NAME,
       BUILDING_NUMBER,
@@ -156,11 +157,20 @@ export default class OsPlacesAddressService {
     // Do not return address data that does not have a valid postal address:
     if (POSTAL_ADDRESS_CODE === 'N') return undefined
 
+    const useOrganisationNameAsBuildingName =
+      !isBlank(ORGANISATION_NAME) && isBlank(BUILDING_NAME) && isBlank(SUB_BUILDING_NAME)
+
+    const buildingName = convertToTitleCase(useOrganisationNameAsBuildingName ? ORGANISATION_NAME : BUILDING_NAME)
+    const subBuildingName = [useOrganisationNameAsBuildingName ? null : ORGANISATION_NAME, SUB_BUILDING_NAME]
+      .filter(name => !isBlank(name))
+      .map(name => convertToTitleCase(name!))
+      .join(', ')
+
     return {
       addressString: this.formatAddressString(ADDRESS, BUILDING_NUMBER, THOROUGHFARE_NAME, POSTCODE),
       buildingNumber: BUILDING_NUMBER,
-      buildingName: convertToTitleCase(BUILDING_NAME),
-      subBuildingName: convertToTitleCase(SUB_BUILDING_NAME),
+      buildingName,
+      subBuildingName,
       thoroughfareName: convertToTitleCase(THOROUGHFARE_NAME),
       dependentLocality: convertToTitleCase(DEPENDENT_LOCALITY),
       postTown: convertToTitleCase(POST_TOWN),
@@ -175,6 +185,7 @@ export default class OsPlacesAddressService {
     const {
       UPRN,
       ADDRESS,
+      ORGANISATION,
       SAO_TEXT,
       PAO_START_NUMBER,
       PAO_TEXT,
@@ -188,11 +199,19 @@ export default class OsPlacesAddressService {
     // Do not return address data that does not have a valid postal address:
     if (POSTAL_ADDRESS_CODE === 'N') return undefined
 
+    const useOrganisationAsBuildingName = !isBlank(ORGANISATION) && isBlank(PAO_TEXT) && isBlank(SAO_TEXT)
+
+    const buildingName = convertToTitleCase(useOrganisationAsBuildingName ? ORGANISATION : PAO_TEXT)
+    const subBuildingName = [useOrganisationAsBuildingName ? null : ORGANISATION, SAO_TEXT]
+      .filter(name => !isBlank(name))
+      .map(name => convertToTitleCase(name!))
+      .join(', ')
+
     return {
       addressString: this.formatAddressString(ADDRESS, PAO_START_NUMBER, STREET_DESCRIPTION, POSTCODE_LOCATOR),
       buildingNumber: PAO_START_NUMBER,
-      buildingName: convertToTitleCase(PAO_TEXT),
-      subBuildingName: convertToTitleCase(SAO_TEXT),
+      buildingName,
+      subBuildingName,
       thoroughfareName: convertToTitleCase(STREET_DESCRIPTION),
       postTown: convertToTitleCase(TOWN_NAME),
       postcode: POSTCODE_LOCATOR,

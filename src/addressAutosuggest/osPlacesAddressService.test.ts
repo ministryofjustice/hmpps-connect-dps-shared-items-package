@@ -162,12 +162,81 @@ describe('osPlacesAddressService', () => {
 
       validateExpectedAddressResponse(address!)
     })
+
+    describe('Handles organisation name', () => {
+      it.each([
+        ['', '', '', '', ''],
+        ['My Organisation', '', '', '', 'My Organisation'],
+        ['My Organisation', 'Floor 1', '', 'My Organisation, Floor 1', ''],
+        ['My Organisation', '', 'My Building', 'My Organisation', 'My Building'],
+        ['My Organisation', 'Floor 1', 'My Building', 'My Organisation, Floor 1', 'My Building'],
+      ])(
+        'Maps DPA address: %s, %s, %s',
+        async (organisationName, subBuildingName, buildingName, mappedSubBuildingName, mappedBuildingName) => {
+          osPlacesApiClient.getAddressesByUprn = jest.fn(
+            async () =>
+              ({
+                ...mockOsPlacesAddressQuerySingleResponse,
+                results: [
+                  {
+                    DPA: {
+                      ...mockOsPlacesAddressQuerySingleResponse.results[0].DPA,
+                      ORGANISATION_NAME: organisationName,
+                      SUB_BUILDING_NAME: subBuildingName,
+                      BUILDING_NAME: buildingName,
+                    },
+                  },
+                ],
+              }) as OsPlacesQueryResponse,
+          )
+
+          const address = await osPlacesAddressService.getAddressByUprn('12345')
+
+          expect(address!.subBuildingName).toEqual(mappedSubBuildingName)
+          expect(address!.buildingName).toEqual(mappedBuildingName)
+        },
+      )
+
+      it.each([
+        ['', '', '', '', ''],
+        ['My Organisation', '', '', '', 'My Organisation'],
+        ['My Organisation', 'Floor 1', '', 'My Organisation, Floor 1', ''],
+        ['My Organisation', '', 'My Building', 'My Organisation', 'My Building'],
+        ['My Organisation', 'Floor 1', 'My Building', 'My Organisation, Floor 1', 'My Building'],
+      ])(
+        'Maps LPI address: %s, %s, %s',
+        async (organisationName, subBuildingName, buildingName, mappedSubBuildingName, mappedBuildingName) => {
+          osPlacesApiClient.getAddressesByUprn = jest.fn(
+            async () =>
+              ({
+                ...mockOsPlacesAddressQuerySingleResponse,
+                results: [
+                  {
+                    LPI: {
+                      ...mockOsPlacesAddressQuerySingleResponse.results[0].LPI,
+                      ORGANISATION: organisationName,
+                      SAO_TEXT: subBuildingName,
+                      PAO_TEXT: buildingName,
+                    },
+                  },
+                ],
+              }) as OsPlacesQueryResponse,
+          )
+
+          const address = await osPlacesAddressService.getAddressByUprn('12345')
+
+          expect(address!.subBuildingName).toEqual(mappedSubBuildingName)
+          expect(address!.buildingName).toEqual(mappedBuildingName)
+        },
+      )
+    })
   })
 
   function validateExpectedAddressResponse(address: OsAddress) {
     expect(address.addressString).toEqual('1 The Road, My Town, A123BC')
     expect(address.buildingNumber).toEqual(1)
     expect(address.subBuildingName).toEqual('')
+    expect(address.buildingName).toEqual('')
     expect(address.thoroughfareName).toEqual('The Road')
     expect(address.dependentLocality).toEqual('My Town')
     expect(address.postTown).toEqual('My Post Town')
