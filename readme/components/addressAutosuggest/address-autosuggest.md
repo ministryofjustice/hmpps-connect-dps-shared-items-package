@@ -35,15 +35,15 @@ Please first follow the library setup instructions [here](../../../README.md#ins
 
 ### API
 This library supports you in setting up an API endpoint and client to query the [OSPlaces API](https://docs.os.uk/os-apis/accessing-os-apis/os-places-api/technical-specification).
-You will need to set up an OS Data Hub account [here](https://osdatahub.os.uk/plans) (please contact #connect-dps for 
-support in setting this up) and get an API key. 
+You will need to set up an OS Data Hub account [here](https://osdatahub.os.uk/plans) (please contact #connect-dps for
+support in setting this up) and get an API key.
 
 A basic example to set up the endpoint is:
 
 ```typescript
   import { ApiConfig } from '@ministryofjustice/hmpps-rest-client'
   import { OsPlacesApiClient, OsPlacesAddressService } from '@ministryofjustice/hmpps-connect-dps-shared-items'
-  import logger from './logger' // import the logger 
+  import logger from './logger' // import the logger
 
   // normally found in a config.ts file...
   const osPlacesApiConfig: ApiConfig & { apiKey: string } = {
@@ -51,12 +51,12 @@ A basic example to set up the endpoint is:
     apiKey: 'THE-API-KEY',
     ... and timeout config
   }
-  
+
   // normally set up in a data/index.ts file...
   const osPlacesApiClient = new OsPlacesApiClient(logger, osPlacesApiConfig)
 
   // normally set up in a services/index.ts file...
-  const osPlacesAddressService = new OsPlacesAddressService(logger, osPlacesApiClient) 
+  const osPlacesAddressService = new OsPlacesAddressService(logger, osPlacesApiClient)
 
   ... router initialisation
 
@@ -83,7 +83,8 @@ To use the component in a nunjucks template:
   ...
 
   {{ addressAutosuggest({
-    value: 'some prepopulated input value, for instance after validation error',
+    uprn: 'optional prepopulated uprn value',
+    inputValue: 'some prepopulated input value, for instance after validation error',
     errorMessage: 'some error message, for instance after validation error',
     classes: 'some-custom-styling-class',
     findUrl: '/api/addresses/find'
@@ -106,7 +107,7 @@ To use the component in a nunjucks template:
     <tr>
       <td><b>errorMessage</b></td>
       <td>object</td>
-      <td>Can be used to add an error message to the text input component. The error message component will not display 
+      <td>Can be used to add an error message to the text input component. The error message component will not display
         if you use a falsy value for <code>errorMessage</code>, for example <code>false</code> or <code>null</code>.
         <a href="https://design-system.service.gov.uk/components/error-message/#options-error-message-example">See macro
         options for errorMessage</a>.
@@ -115,7 +116,7 @@ To use the component in a nunjucks template:
     <tr>
       <td><b>findUrl</b></td>
       <td>string</td>
-      <td>The URL that the client side javascript should use to perform the find address query. Defaults to 
+      <td>The URL that the client side javascript should use to perform the find address query. Defaults to
         <code>/api/addresses/find</code>
       </td>
     </tr>
