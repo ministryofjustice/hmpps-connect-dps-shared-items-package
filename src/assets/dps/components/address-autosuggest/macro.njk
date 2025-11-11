@@ -4,7 +4,7 @@
 {% macro addressAutosuggest(options) %}
 
     <div class="hmpps-js-address-autosuggest">
-        <input type="hidden" id="uprn" class="hmpps-js-uprn hmpps-display-none" name="uprn"/>
+        <input type="hidden" id="uprn" class="hmpps-js-uprn hmpps-display-none" name="uprn" {% if options.uprn %} value="{{ options.uprn }}" {% endif %} />
         <div
                 class="hmpps-address-autosuggest{% if options.classes %} {{ options.classes }}{% endif %}"
                 data-aria-you-have-selected="You have selected"
