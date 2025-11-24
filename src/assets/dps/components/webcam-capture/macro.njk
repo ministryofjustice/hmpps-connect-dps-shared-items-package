@@ -1,0 +1,186 @@
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% macro cameraSvg() %}
+  <svg width="24" height="18" viewBox="0 0 24 18" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M12.9351 4.84277C15.6211 4.97829 17.7571 7.18753 17.7572 9.89258L17.7503 10.1523C17.6142 12.8237 15.3936 14.9479 12.6739 14.9482L12.4118 14.9414C9.81233 14.8103 7.72832 12.7377 7.59652 10.1523L7.58965 9.89258C7.58976 7.1002 9.86627 4.83594 12.6739 4.83594L12.9351 4.84277ZM12.6739 6.33594C10.6992 6.33594 9.09795 7.92863 9.09785 9.89258C9.0981 11.8564 10.6993 13.4482 12.6739 13.4482C14.6482 13.4479 16.2488 11.8562 16.249 9.89258C16.2489 7.92884 14.6483 6.33627 12.6739 6.33594Z" fill="black"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.2671 0.193359C16.0986 0.254745 16.8346 0.768568 17.172 1.53613L17.5981 2.50586H21.7143C22.9635 2.50597 23.9764 3.51346 23.9766 4.75586V15.5088L23.9648 15.7393C23.8563 16.7975 23.0103 17.6393 21.946 17.7471L21.7143 17.7588H3.23886C2.06756 17.7588 1.10459 16.8732 0.988345 15.7393L0.976562 15.5088V4.75586C0.976721 3.51348 1.9894 2.50586 3.23886 2.50586H7.354L7.78014 1.53613C8.14035 0.716788 8.95521 0.18757 9.85391 0.1875H15.0992L15.2671 0.193359ZM9.85391 1.6875C9.55405 1.68755 9.28258 1.86482 9.16265 2.1377L8.53915 3.55664C8.41907 3.82962 8.1475 4.00586 7.84789 4.00586H3.23886C2.82257 4.00586 2.48486 4.34161 2.48476 4.75586V15.5088L2.48869 15.585C2.52728 15.9635 2.84864 16.2588 3.23886 16.2588H21.7143L21.7909 16.2549C22.1458 16.2192 22.4284 15.9383 22.4644 15.585L22.4684 15.5088V4.75586C22.4683 4.36747 22.1712 4.04802 21.7909 4.00977L21.7143 4.00586H17.1043C16.8046 4.00586 16.5331 3.82962 16.413 3.55664L15.7895 2.1377C15.6844 1.89857 15.4641 1.73291 15.2102 1.69531L15.0992 1.6875H9.85391Z" fill="black"/>
+  </svg>
+{% endmacro %}
+
+{% macro noCameraSvg() %}
+  <svg width="69" height="47" viewBox="0 0 69 47" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M41.8999 0.015625C44.0562 0.17569 45.9652 1.51517 46.8403 3.5166L47.9458 6.04492H58.6196C60.2824 6.04507 61.7825 6.73895 62.8501 7.85059L65.7271 6.19141C66.6625 5.65171 67.8591 5.97184 68.3989 6.90723C68.9387 7.84277 68.6177 9.03936 67.6821 9.5791L64.4653 11.4346C64.4781 11.5921 64.4868 11.7513 64.4868 11.9121V39.9502L64.4565 40.5518C64.1751 43.3111 61.9813 45.506 59.2212 45.7871L58.6196 45.8174H10.7065C9.33066 45.8173 8.06623 45.343 7.06592 44.5498L3.2749 46.7373C2.33936 47.277 1.14276 46.9561 0.603027 46.0205C0.063345 45.085 0.384456 43.8894 1.31982 43.3496L4.98291 41.2354C4.93294 41.0119 4.89429 40.784 4.87061 40.5518L4.84033 39.9502V11.9121C4.84075 8.67266 7.46638 6.04507 10.7065 6.04492H21.3784L22.4839 3.5166C23.418 1.38019 25.5312 0.000255599 27.8618 0H41.4653L41.8999 0.015625ZM47.6782 21.1191C48.1185 22.4347 48.3579 23.8429 48.3579 25.3066L48.3394 25.9834C47.9862 32.9491 42.2276 38.4886 35.1743 38.4893L34.4946 38.4717C30.8348 38.286 27.571 36.606 25.2954 34.0322L11.6489 41.9062H58.6196L58.8188 41.8965C59.7394 41.8033 60.4724 41.0706 60.5659 40.1494L60.5757 39.9502V13.6787L47.6782 21.1191ZM27.8618 3.91113C27.0843 3.91133 26.3798 4.3735 26.0688 5.08496L24.4526 8.78516C24.1412 9.49696 23.4367 9.95605 22.6597 9.95605H10.7065C9.6271 9.95621 8.75174 10.832 8.75146 11.9121V39.0615L23.1626 30.7471C22.4981 29.2826 22.0931 27.6751 22.0073 25.9834L21.9897 25.3066C21.9897 18.0254 27.8931 12.1213 35.1743 12.1211L35.8521 12.1387C39.9908 12.3485 43.626 14.4673 45.895 17.6318L59.0952 10.0166C59.0053 9.99411 58.9132 9.97635 58.8188 9.9668L58.6196 9.95605H46.6646C45.8876 9.95599 45.183 9.49691 44.8716 8.78516L43.2554 5.08496C42.9828 4.46149 42.411 4.02968 41.7524 3.93164L41.4653 3.91113H27.8618ZM28.7837 32.0195C30.4474 33.6031 32.6963 34.578 35.1743 34.5781C40.2945 34.5775 44.445 30.4268 44.4458 25.3066C44.4458 24.558 44.3555 23.8301 44.188 23.1328L28.7837 32.0195ZM35.1743 16.0322C30.0532 16.0325 25.9009 20.1855 25.9009 25.3066C25.9011 26.5345 26.1419 27.7058 26.5757 28.7783L42.481 19.6016C40.784 17.4304 38.1432 16.0326 35.1743 16.0322Z" fill="white"/>
+  </svg>
+{% endmacro %}
+
+{% set retakePhotoHtml %}
+  <div class="hmpps-webcam-button-text">
+    Retake
+  </div>
+{% endset %}
+{% set takePhotoHtml %}
+  <div class="hmpps-webcam-button-text">
+    {{ cameraSvg() }}
+    Take photo
+  </div>
+{% endset %}
+{% macro photoPreview(options) %}
+  <div
+      class="hmpps-webcam-capture-photo-container hmpps-webcam-capture-photo-container__with-border"
+      id="photo-preview-container">
+    <div class="hmpps-webcam-capture-photo-container__content">
+      <div class="hmpps-webcam-capture-photo-container__photo-preview">
+        <div id="webcam-capture">
+          <img id="snapshot" src="" alt="Captured frame will appear here"/>
+        </div>
+        <div class="hmpps-webcam-capture-photo-container__controls govuk-!-margin-bottom-0">
+          {{ govukButton({
+            html: retakePhotoHtml,
+            type: "button",
+            id: "clearImageButton",
+            classes: "hmpps-button hmpps-webcam-capture-photo-container__controls__full-width govuk-button--secondary",
+            preventDoubleClick: true
+          }) }}
+        </div>
+      </div>
+      <div class="hmpps-webcam-capture-photo-container__description">
+        {{ options.photoInstructions.html }}
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+{% macro photoCapture(options) %}
+  <div
+      class="hmpps-webcam-capture-photo-container hmpps-webcam-capture-photo-container__with-border"
+      id="photo-capture-container">
+    <div class="hmpps-webcam-capture-photo-container__content">
+      <div class="hmpps-webcam-capture-photo-container__photo">
+        <div class="hmpps-webcam-video-container">
+          <div id="webcam-placeholder" class="hmpps-webcam-video-container__placeholder">
+            {{ noCameraSvg() }}
+          </div>
+          <div id="webcam-video">
+            <video id="webcam" autoplay playsinline></video>
+          </div>
+          <div class="hmpps-webcam-capture-photo-container__controls govuk-!-margin-bottom-0">
+            {{ govukButton({
+              id: "captureImageButton",
+              type: "button",
+              html: takePhotoHtml,
+              classes: "hmpps-button hmpps-webcam-capture-photo-container__controls__full-width govuk-button--secondary",
+              preventDoubleClick: true,
+              disabled: true
+            }) }}
+          </div>
+        </div>
+      </div>
+      <div class="hmpps-webcam-capture-photo-container__description">
+        <p class="govuk-body" id="permission-requested">
+          DPS is asking to access your camera
+        </p>
+        <div id="permission-granted">
+          <div id="webcam-select-form-group">
+            {{ govukSelect({
+              id: "select-webcam",
+              name: "select-webcam",
+              label: {
+                html: "<h2 class='govuk-heading-s govuk-!-margin-bottom-0'>Check which webcam to use</h2>",
+                classes: "govuk-!-margin-bottom-2"
+              },
+              hint: {
+                text: "Your computer has more than one webcam connected to it. You can change the webcam you use by selecting its name."
+              },
+              classes: "govuk-!-width-full",
+              items: [],
+              formGroup: {
+                classes: "govuk-!-margin-bottom-4"
+              }
+            }) }}
+            <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-3"/>
+          </div>
+          {{ options.photoInstructions.html }}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+{% macro photoCaptureError(options) %}
+  <div
+      class="hmpps-webcam-capture-photo-container hmpps-webcam-capture-photo-container__error"
+      id="photo-capture-container__error">
+    <div class="hmpps-webcam-capture-photo-container__content">
+      <div class="hmpps-webcam-capture-photo-container__photo">
+        <div class="hmpps-webcam-video-container">
+          <div id="webcam-placeholder" class="hmpps-webcam-video-container__placeholder">
+            {{ noCameraSvg() }}
+          </div>
+        </div>
+      </div>
+      <div class="hmpps-webcam-capture-photo-container__description">
+        <div>
+          <svg
+              class="hmpps-webcam-error-icon"
+              role="presentation"
+              focusable="false"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 30 30"
+              height="30"
+              width="30">
+            <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M15 2.44922L28.75 26.1992H1.25L15 2.44922ZM13.5107 9.49579H16.4697L16.2431 17.7678H13.7461L13.5107 9.49579ZM13.1299
+              21.82C13.1299 21.5661 13.1787 21.3285 13.2764 21.1071C13.374 20.8793 13.5075 20.6807 13.6768 20.5114C13.8525 20.3421
+              14.0544 20.2087 14.2822 20.111C14.5101 20.0134 14.7542 19.9645 15.0146 19.9645C15.2686 19.9645 15.5062 20.0134 15.7275
+              20.111C15.9554 20.2087 16.154 20.3421 16.3232 20.5114C16.4925 20.6807 16.626 20.8793 16.7236 21.1071C16.8213 21.3285
+              16.8701 21.5661 16.8701 21.82C16.8701 22.0804 16.8213 22.3246 16.7236 22.5524C16.626 22.7803 16.4925 22.9789 16.3232
+              23.1481C16.154 23.3174 15.9554 23.4509 15.7275 23.5485C15.5062 23.6462 15.2686 23.695 15.0146 23.695C14.7542 23.695
+              14.5101 23.6462 14.2822 23.5485C14.0544 23.4509 13.8525 23.3174 13.6768 23.1481C13.5075 22.9789 13.374 22.7803 13.2764
+              22.5524C13.1787 22.3246 13.1299 22.0804 13.1299 21.82Z"
+                fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="govuk-heading-m">
+            Your computer cannot access the webcam
+          </h2>
+          <p class="govuk-body govuk-!-margin-bottom-1">
+            You may need to:
+          </p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>open your browser’s settings and look for camera permissions to allow the request</li>
+            <li>check the webcam is connected to the computer you’re using</li>
+          </ul>
+          <p class="govuk-body">
+            <span class="govuk-!-font-weight-bold">If you cannot resolve the issue</span><br/> Call the helpdesk. If you are inside
+            an establishment, dial #6598. If you are working externally, call 0800 917 5148. Tell helpdesk that DPS cannot access
+            the webcam.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+{% macro hmppsWebcamCapture(options) %}
+  <div class="hmpps-webcam-capture" id="hmpps-webcam-capture-component">
+    <input type="file" id="webcam-image-input" name="{{  options.fileField.name | default("file") }}" hidden />
+    {{ photoPreview(options) }}
+    {{ photoCapture(options) }}
+    {{ photoCaptureError(options) }}
+    <div class="govuk-button-group">
+      {{ govukButton({
+        id: "webcam-submit",
+        text: "Save and continue",
+        type: "submit",
+        preventDoubleClick: true,
+        attributes: { "data-qa": "submit-button" },
+        disabled: true
+      }) }}
+      <a href="{{ options.cancelUrl }}" class="govuk-link govuk-link--no-visited-state" data-qa="edit-cancel-button">
+        Cancel</a>
+    </div>
+  </div>
+{% endmacro %}
+
+
