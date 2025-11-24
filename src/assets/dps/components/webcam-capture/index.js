@@ -1,4 +1,4 @@
-function hmppsWebcamCapture() {
+function hmppsWebcamCapture(component) {
   const video = document.getElementById('webcam')
   const captureBtn = document.getElementById('captureImageButton')
   const clearImageBtn = document.getElementById('clearImageButton')
@@ -8,7 +8,7 @@ function hmppsWebcamCapture() {
   const webcamSelectFormGroup = document.getElementById('webcam-select-form-group')
   const webcamSubmit = document.getElementById('webcam-submit')
   const webcamPlaceholder = document.getElementById('webcam-placeholder')
-  const prisonerNumber = document.getElementById('prisonerNumber').textContent ?? ''
+  const fileName = component.dataset.fileName ?? 'webcam-capture'
 
 // Permissions
   const permissionRequested = document.getElementById('permission-requested')
@@ -102,7 +102,7 @@ function hmppsWebcamCapture() {
 
   clearImageBtn.addEventListener('click', () => {
     snapshot.src = ''
-    // TMP
+
     photoPreviewContainer.style.display = 'none'
     photoCaptureContainer.style.display = 'block'
     webcamSubmit.disabled = true
@@ -123,7 +123,7 @@ function hmppsWebcamCapture() {
       blob => {
         if (!blob) return
 
-        const file = new File([blob], `${prisonerNumber}-webcam-capture.jpg`, { type: mimetype })
+        const file = new File([blob], `${fileName}.jpg`, { type: mimetype })
 
         const dataTransfer = new DataTransfer()
         dataTransfer.items.add(file)
@@ -149,7 +149,7 @@ function hmppsWebcamCapture() {
 
 export function init() {
   const webcamContainer = document.getElementById('hmpps-webcam-capture-component')
-  if(webcamContainer) {
-    hmppsWebcamCapture()
+  if (webcamContainer) {
+    hmppsWebcamCapture(webcamContainer)
   }
 }
