@@ -1,25 +1,25 @@
 function hmppsWebcamCapture(component) {
-  const video = document.getElementById('webcam')
-  const captureBtn = document.getElementById('captureImageButton')
-  const clearImageBtn = document.getElementById('clearImageButton')
-  const snapshot = document.getElementById('snapshot')
-  const webcamImageFileInput = document.getElementById('webcam-image-input')
-  const webcamSelect = document.getElementById('select-webcam')
-  const webcamSelectFormGroup = document.getElementById('webcam-select-form-group')
-  const webcamSubmit = document.getElementById('webcam-submit')
-  const webcamPlaceholder = document.getElementById('webcam-placeholder')
+  const video = document.getElementById('hmpps-webcam__webcam')
+  const captureBtn = document.getElementById('hmpps-webcam__captureImageButton')
+  const clearImageBtn = document.getElementById('hmpps-webcam__clearImageButton')
+  const snapshot = document.getElementById('hmpps-webcam__snapshot')
+  const webcamImageFileInput = document.getElementById('hmpps-webcam__webcam-image-input')
+  const webcamSelect = document.getElementById('hmpps-webcam__select-webcam')
+  const webcamSelectFormGroup = document.getElementById('hmpps-webcam__webcam-select-form-group')
+  const webcamSubmit = document.getElementById('hmpps-webcam__webcam-submit')
+  const webcamPlaceholder = document.getElementById('hmpps-webcam__webcam-placeholder')
   const fileName = component.dataset.fileName ?? 'webcam-capture'
   const enableReporting = component.dataset.reportErrors === 'true'
 
 // Permissions
-  const permissionRequested = document.getElementById('permission-requested')
-  const permissionGranted = document.getElementById('permission-granted')
-  const webcamError = document.getElementById('webcam-error')
+  const permissionRequested = document.getElementById('hmpps-webcam__permission-requested')
+  const permissionGranted = document.getElementById('hmpps-webcam__permission-granted')
+  const webcamError = document.getElementById('hmpps-webcam__webcam-error')
 
 // Preview elements
-  const photoPreviewContainer = document.getElementById('photo-preview-container')
-  const photoCaptureContainer = document.getElementById('photo-capture-container')
-  const photoCaptureErrorContainer = document.getElementById('photo-capture-container__error')
+  const photoPreviewContainer = document.getElementById('hmpps-webcam__photo-preview-container')
+  const photoCaptureContainer = document.getElementById('hmpps-webcam__photo-capture-container')
+  const photoCaptureErrorContainer = document.getElementById('hmpps-webcam__photo-capture-container__error')
 
   const mimetype = 'image/jpeg'
 

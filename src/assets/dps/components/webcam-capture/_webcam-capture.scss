@@ -52,25 +52,6 @@ $hmpps-webcam-capture-height: 276px;
         @include govuk-responsive-margin(3, 'bottom');
       }
 
-      #permission-requested {
-        display: block;
-      }
-
-      #permission-denied {
-        display: none;
-      }
-
-      #permission-granted {
-        display: none;
-      }
-
-      #webcam-not-found {
-        display: none;
-      }
-
-      #webcam-error {
-        display: none;
-      }
     }
 
     &__controls {
@@ -84,7 +65,7 @@ $hmpps-webcam-capture-height: 276px;
       }
 
       &__half-width {
-        width: calc(($hmpps-webcam-capture-width/2) - 3px);
+        width: calc(($hmpps-webcam-capture-width / 2) - 3px);
       }
 
       button {
@@ -129,15 +110,15 @@ $hmpps-webcam-capture-height: 276px;
     }
   }
 
-  #photo-capture-container {
-    display: none;
-  }
-
-  #rotate-button-group {
-    display: none;
-  }
-
-  #photo-capture-container__error {
+  // These are controlled by the javascript to display as appropriate
+  #hmpps-webcam__photo-capture-container,
+  #hmpps-webcam__rotate-button-group,
+  #hmpps-webcam__photo-capture-container__error,
+  #hmpps-webcam__permission-requested,
+  #hmpps-webcam__permission-denied,
+  #hmpps-webcam__permission-granted,
+  #hmpps-webcam__webcam-not-found,
+  #hmpps-webcam__webcam-error {
     display: none;
   }
 }

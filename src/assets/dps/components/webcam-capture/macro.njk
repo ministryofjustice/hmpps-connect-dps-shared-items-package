@@ -28,17 +28,17 @@
 {% macro photoPreview(options) %}
   <div
       class="hmpps-webcam-capture-photo-container hmpps-webcam-capture-photo-container__with-border"
-      id="photo-preview-container">
+      id="hmpps-webcam__photo-preview-container">
     <div class="hmpps-webcam-capture-photo-container__content">
       <div class="hmpps-webcam-capture-photo-container__photo-preview">
-        <div id="webcam-capture">
-          <img id="snapshot" src="" alt="Captured frame will appear here"/>
+        <div id="hmpps-webcam__webcam-capture">
+          <img id="hmpps-webcam__snapshot" src="" alt="Captured frame will appear here"/>
         </div>
         <div class="hmpps-webcam-capture-photo-container__controls govuk-!-margin-bottom-0">
           {{ govukButton({
             html: retakePhotoHtml,
             type: "button",
-            id: "clearImageButton",
+            id: "hmpps-webcam__clearImageButton",
             classes: "hmpps-button hmpps-webcam-capture-photo-container__controls__full-width govuk-button--secondary",
             preventDoubleClick: true
           }) }}
@@ -53,19 +53,19 @@
 {% macro photoCapture(options) %}
   <div
       class="hmpps-webcam-capture-photo-container hmpps-webcam-capture-photo-container__with-border"
-      id="photo-capture-container">
+      id="hmpps-webcam__photo-capture-container">
     <div class="hmpps-webcam-capture-photo-container__content">
       <div class="hmpps-webcam-capture-photo-container__photo">
         <div class="hmpps-webcam-video-container">
-          <div id="webcam-placeholder" class="hmpps-webcam-video-container__placeholder">
+          <div id="hmpps-webcam__webcam-placeholder" class="hmpps-webcam-video-container__placeholder">
             {{ noCameraSvg() }}
           </div>
-          <div id="webcam-video">
-            <video id="webcam" autoplay playsinline></video>
+          <div id="hmpps-webcam__webcam-video">
+            <video id="hmpps-webcam__webcam" autoplay playsinline></video>
           </div>
           <div class="hmpps-webcam-capture-photo-container__controls govuk-!-margin-bottom-0">
             {{ govukButton({
-              id: "captureImageButton",
+              id: "hmpps-webcam__captureImageButton",
               type: "button",
               html: takePhotoHtml,
               classes: "hmpps-button hmpps-webcam-capture-photo-container__controls__full-width govuk-button--secondary",
@@ -76,13 +76,13 @@
         </div>
       </div>
       <div class="hmpps-webcam-capture-photo-container__description">
-        <p class="govuk-body" id="permission-requested">
+        <p class="govuk-body" id="hmpps-webcam__permission-requested">
           DPS is asking to access your camera
         </p>
-        <div id="permission-granted">
-          <div id="webcam-select-form-group">
+        <div id="hmpps-webcam__permission-granted">
+          <div id="hmpps-webcam__webcam-select-form-group">
             {{ govukSelect({
-              id: "select-webcam",
+              id: "hmpps-webcam__select-webcam",
               name: "select-webcam",
               label: {
                 html: "<h2 class='govuk-heading-s govuk-!-margin-bottom-0'>Check which webcam to use</h2>",
@@ -108,11 +108,11 @@
 {% macro photoCaptureError(options) %}
   <div
       class="hmpps-webcam-capture-photo-container hmpps-webcam-capture-photo-container__error"
-      id="photo-capture-container__error">
+      id="hmpps-webcam__photo-capture-container__error">
     <div class="hmpps-webcam-capture-photo-container__content">
       <div class="hmpps-webcam-capture-photo-container__photo">
         <div class="hmpps-webcam-video-container">
-          <div id="webcam-placeholder" class="hmpps-webcam-video-container__placeholder">
+          <div id="hmpps-webcam__webcam-placeholder" class="hmpps-webcam-video-container__placeholder">
             {{ noCameraSvg() }}
           </div>
         </div>
@@ -164,13 +164,13 @@
 {% endmacro %}
 {% macro hmppsWebcamCapture(options) %}
   <div class="hmpps-webcam-capture" id="hmpps-webcam-capture-component" data-file-name="{{ options.fileName }}" data-report-errors="{{ "true" if (options.reportErrors == true) else "false" }}">
-    <input type="file" id="webcam-image-input" name="{{  options.fileField.name | default("file") }}" hidden />
+    <input type="file" id="hmpps-webcam__webcam-image-input" name="{{  options.fileField.name | default("file") }}" hidden />
     {{ photoPreview(options) }}
     {{ photoCapture(options) }}
     {{ photoCaptureError(options) }}
     <div class="govuk-button-group">
       {{ govukButton({
-        id: "webcam-submit",
+        id: "hmpps-webcam__webcam-submit",
         text: "Save and continue",
         type: "submit",
         preventDoubleClick: true,
