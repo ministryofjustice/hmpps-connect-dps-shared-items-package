@@ -9,6 +9,7 @@ function hmppsWebcamCapture(component) {
   const webcamSubmit = document.getElementById('webcam-submit')
   const webcamPlaceholder = document.getElementById('webcam-placeholder')
   const fileName = component.dataset.fileName ?? 'webcam-capture'
+  const enableReporting = component.dataset.reportErrors === 'true'
 
 // Permissions
   const permissionRequested = document.getElementById('permission-requested')
@@ -61,10 +62,11 @@ function hmppsWebcamCapture(component) {
     } catch (e) {
       photoCaptureContainer.style.display = 'none'
       photoCaptureErrorContainer.style.display = 'block'
-
-      await fetch(`/api/report-error?pageUrl=${encodeURIComponent(location.href)}&error=${e.name}`, {
-        method: 'GET',
-      })
+      if (enableReporting) {
+        await fetch(`/api/report-error?pageUrl=${encodeURIComponent(location.href)}&error=${e.name}`, {
+          method: 'GET',
+        })
+      }
     }
   }
 

@@ -163,7 +163,7 @@
   </div>
 {% endmacro %}
 {% macro hmppsWebcamCapture(options) %}
-  <div class="hmpps-webcam-capture" id="hmpps-webcam-capture-component" data-file-name="{{ options.fileName }}">
+  <div class="hmpps-webcam-capture" id="hmpps-webcam-capture-component" data-file-name="{{ options.fileName }}" data-report-errors="{{ "true" if (options.reportErrors == true) else "false" }}">
     <input type="file" id="webcam-image-input" name="{{  options.fileField.name | default("file") }}" hidden />
     {{ photoPreview(options) }}
     {{ photoCapture(options) }}
