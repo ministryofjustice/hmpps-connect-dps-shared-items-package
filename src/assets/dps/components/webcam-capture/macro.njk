@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="hmpps-webcam-capture-photo-container__description">
-        {{ options.photoInstructions.html }}
+        {{ options.photoInstructions.html | safe }}
       </div>
     </div>
   </div>
@@ -99,7 +99,7 @@
             }) }}
             <hr class="govuk-section-break govuk-section-break--visible govuk-!-margin-bottom-3"/>
           </div>
-          {{ options.photoInstructions.html }}
+          {{ options.photoInstructions.html | safe }}
         </div>
       </div>
     </div>
