@@ -15,6 +15,7 @@ const stringContainingPostCodeRegex = /^(.*?)([A-Z]{1,2}\d[A-Z\d]? ?)(\d[A-Z]{2}
 // Where we know OS Places API struggles with certain search terms, we will perform an additional replacement search:
 const knownIssueSearchTermReplacements: Record<string, string> = {
   amazon: 'amazon.co.uk',
+  hmp: 'prison', // The entry can sometimes be something like 'HM Prison Ranby' which the API struggles to match
 }
 
 export interface AddressesMatchingQueryConfig {
@@ -50,6 +51,7 @@ export default class OsPlacesAddressService {
 
     return this.getOptimisedAddressesMatchingQuery(
       sanitisedSearchQuery,
+      additionalSearchQuery,
       [...rawResults, ...additionalResultsForKnownIssueSearchTerms],
       config,
     )
@@ -89,6 +91,7 @@ export default class OsPlacesAddressService {
 
   private getOptimisedAddressesMatchingQuery(
     searchQuery: string,
+    additionalSearchQuery: string,
     rawResults: OsAddress[],
     config: AddressesMatchingQueryConfig,
   ): OsAddress[] {
@@ -105,7 +108,9 @@ export default class OsPlacesAddressService {
 
     const queryIsAPostCode = simplePostCodeRegex.test(searchQuery)
     const isExactMatchToQuery = (addressString: string | undefined) =>
-      searchQuery && this.sanitiseString(addressString)?.includes(searchQuery!)
+      searchQuery &&
+      (this.sanitiseString(addressString)?.includes(searchQuery!) ||
+        this.sanitiseString(addressString)?.includes(additionalSearchQuery!))
 
     // By using `useExtendedSearch` and allowing search terms to be separated, we need to reprioritise exact match results:
     const preferExactMatchSort = (a: OsAddress, b: OsAddress) =>
