@@ -68,6 +68,7 @@ connectDps.initAll()
 
 1. [Alert Flag](readme/components/alertFlag/alert-flag.md)
 2. [Address Autosuggest](readme/components/addressAutosuggest/address-autosuggest.md)
+3. [Webcam Upload](readme/components/webcamCapture/webcam-capture.md)
 
 ## For Library Developers
 
