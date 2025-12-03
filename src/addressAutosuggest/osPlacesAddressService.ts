@@ -13,9 +13,10 @@ const simplePostCodeRegex = /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i
 const stringContainingPostCodeRegex = /^(.*?)([A-Z]{1,2}\d[A-Z\d]? ?)(\d[A-Z]{2})(.*)$/i
 
 // Where we know OS Places API struggles with certain search terms, we will perform an additional replacement search:
-const knownIssueSearchTermReplacements: Record<string, string> = {
-  amazon: 'amazon.co.uk',
-  hmp: 'prison', // The entry can sometimes be something like 'HM Prison Ranby' which the API struggles to match
+const knownIssueSearchTermReplacements: Record<string, { osPlaces: string; fuse: string }> = {
+  hmp: { osPlaces: 'prison', fuse: '(hmp | prison)' }, // The entry can sometimes be something like 'HM Prison Ranby' which the API struggles to match
+  amazon: { osPlaces: 'amazon.co.uk', fuse: 'amazon !locker' },
+  sainsburys: { osPlaces: `sainsbury's`, fuse: `(sainsburys | sainsbury's)` },
 }
 
 export interface AddressesMatchingQueryConfig {
@@ -38,10 +39,7 @@ export default class OsPlacesAddressService {
     config: AddressesMatchingQueryConfig = { osPlacesQueryParamOverrides: {}, fuzzyMatchOptionOverrides: {} },
   ): Promise<OsAddress[]> {
     const sanitisedSearchQuery = this.sanitiseString(rawSearchQuery) || ''
-    const additionalSearchQuery = Object.keys(knownIssueSearchTermReplacements).reduce((accumulator, currentValue) => {
-      const reg = new RegExp(currentValue, 'gi')
-      return accumulator.replace(reg, knownIssueSearchTermReplacements[currentValue])
-    }, sanitisedSearchQuery)
+    const additionalSearchQuery = this.optimiseSearchQuery(sanitisedSearchQuery, 'osPlaces')
 
     const rawResults = await this.getOSPlacesResultsForQuery(sanitisedSearchQuery, config)
     const additionalResultsForKnownIssueSearchTerms =
@@ -51,7 +49,6 @@ export default class OsPlacesAddressService {
 
     return this.getOptimisedAddressesMatchingQuery(
       sanitisedSearchQuery,
-      additionalSearchQuery,
       [...rawResults, ...additionalResultsForKnownIssueSearchTerms],
       config,
     )
@@ -91,26 +88,16 @@ export default class OsPlacesAddressService {
 
   private getOptimisedAddressesMatchingQuery(
     searchQuery: string,
-    additionalSearchQuery: string,
     rawResults: OsAddress[],
     config: AddressesMatchingQueryConfig,
   ): OsAddress[] {
-    const bestMatchResults = new Fuse(rawResults, {
-      shouldSort: true,
-      threshold: 0.2,
-      useExtendedSearch: true, // to allow search terms to be separated
-      ignoreLocation: true, // to allow search terms to be separated
-      keys: [{ name: 'addressString' }],
-      ...config.fuzzyMatchOptionOverrides,
-    })
-      .search(searchQuery)
-      .map(result => result.item)
+    const bestMatchResults = this.applyFuzzyMatching(this.optimiseSearchQuery(searchQuery, 'fuse'), rawResults, config)
 
     const queryIsAPostCode = simplePostCodeRegex.test(searchQuery)
     const isExactMatchToQuery = (addressString: string | undefined) =>
       searchQuery &&
       (this.sanitiseString(addressString)?.includes(searchQuery!) ||
-        this.sanitiseString(addressString)?.includes(additionalSearchQuery!))
+        this.sanitiseString(addressString)?.includes(this.optimiseSearchQuery(searchQuery, 'osPlaces')!))
 
     // By using `useExtendedSearch` and allowing search terms to be separated, we need to reprioritise exact match results:
     const preferExactMatchSort = (a: OsAddress, b: OsAddress) =>
@@ -126,6 +113,30 @@ export default class OsPlacesAddressService {
     return (bestMatchResults.length ? bestMatchResults : rawResults)
       .sort(queryIsAPostCode ? buildingNumberSort : preferExactMatchSort)
       .slice(0, 100)
+  }
+
+  private applyFuzzyMatching(
+    searchQuery: string,
+    rawResults: OsAddress[],
+    config: AddressesMatchingQueryConfig,
+  ): OsAddress[] {
+    return new Fuse(rawResults, {
+      shouldSort: true,
+      threshold: 0.2,
+      useExtendedSearch: true, // to allow search terms to be separated
+      ignoreLocation: true, // to allow search terms to be separated
+      keys: [{ name: 'addressString' }],
+      ...config.fuzzyMatchOptionOverrides,
+    })
+      .search(searchQuery)
+      .map(result => result.item)
+  }
+
+  private optimiseSearchQuery(query: string, method: 'osPlaces' | 'fuse'): string {
+    return Object.keys(knownIssueSearchTermReplacements).reduce((accumulator, currentValue) => {
+      const reg = new RegExp(currentValue, 'gi')
+      return accumulator.replace(reg, knownIssueSearchTermReplacements[currentValue][method])
+    }, query)
   }
 
   private handleResponse(response: OsPlacesQueryResponse): OsAddress[] {
