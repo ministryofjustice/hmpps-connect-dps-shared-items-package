@@ -194,6 +194,7 @@ describe('osPlacesAddressService', () => {
 
           expect(address!.subBuildingName).toEqual(mappedSubBuildingName)
           expect(address!.buildingName).toEqual(mappedBuildingName)
+          expect(address!.organisationName).toEqual(organisationName)
         },
       )
 

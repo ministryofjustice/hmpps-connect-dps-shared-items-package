@@ -1,5 +1,6 @@
 export interface OsAddress {
   addressString?: string
+  organisationName?: string
   buildingNumber?: number
   buildingName?: string
   subBuildingName?: string

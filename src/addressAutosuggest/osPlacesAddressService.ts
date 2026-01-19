@@ -184,6 +184,7 @@ export default class OsPlacesAddressService {
 
     return {
       addressString: this.formatAddressString(ADDRESS, BUILDING_NUMBER, THOROUGHFARE_NAME, POSTCODE),
+      organisationName: ORGANISATION_NAME && convertToTitleCase(ORGANISATION_NAME),
       buildingNumber: BUILDING_NUMBER,
       buildingName,
       subBuildingName,
@@ -225,6 +226,7 @@ export default class OsPlacesAddressService {
 
     return {
       addressString: this.formatAddressString(ADDRESS, PAO_START_NUMBER, STREET_DESCRIPTION, POSTCODE_LOCATOR),
+      organisationName: ORGANISATION && convertToTitleCase(ORGANISATION),
       buildingNumber: PAO_START_NUMBER,
       buildingName,
       subBuildingName,
