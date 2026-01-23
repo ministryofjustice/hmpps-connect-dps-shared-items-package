@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/hmpps-connect-dps-shared-items",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "description": "A package to share Connect DPS functionality across applications",
   "main": "./dist/index.cjs",
   "module": "./dist/index.esm.js",
@@ -64,7 +64,7 @@
     "jest-junit": "^16.0.0",
     "lint-staged": "^16.2.7",
     "nock": "^14.0.10",
-    "rollup": "4.55.3",
+    "rollup": "4.56.0",
     "rollup-plugin-dts": "^6.3.0",
     "ts-jest": "^29.4.6",
     "tslib": "^2.8.1",

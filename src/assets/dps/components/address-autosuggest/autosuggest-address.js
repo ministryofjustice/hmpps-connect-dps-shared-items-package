@@ -13,6 +13,7 @@ export class AutosuggestAddress {
     this.container = context.querySelector(`.${classInputContainer}`)
     this.uprn = context.querySelector(`.${classUPRN}`)
     this.findUrl = this.container.getAttribute('data-find-url')
+    this.fetchDelay = this.container.getAttribute('data-fetch-delay')
 
     // State:
     this.fetch = null
@@ -29,7 +30,7 @@ export class AutosuggestAddress {
   }
 
   async checkAPIStatus() {
-    this.fetch = abortableFetch(`${this.findUrl}/SW1H9AJ`)
+    this.fetch = abortableFetch(`${this.findUrl}/SW1H9AJ`, { fetchDelay: this.fetchDelay })
 
     try {
       const response = await this.fetch.send()
@@ -56,7 +57,7 @@ export class AutosuggestAddress {
   }
 
   async findAddress(query) {
-    this.fetch = abortableFetch(`${this.findUrl}/${query}`)
+    this.fetch = abortableFetch(`${this.findUrl}/${query}`, { fetchDelay: this.fetchDelay })
     const data = await this.fetch.send()
     const response = await data.json()
     const status = response.status
