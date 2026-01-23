@@ -147,7 +147,6 @@ export class AutosuggestUi {
       this.blurring = false
 
       this.context.classList.remove(`${this.stylingBaseClass}${classSuffixHasResults}`)
-      this.input.removeAttribute('aria-activedescendant')
       this.input.setAttribute('aria-expanded', false)
       this.setAriaStatus()
     }, 300)
@@ -156,7 +155,6 @@ export class AutosuggestUi {
   handleFocus() {
     if (this.listbox.innerHTML) {
       this.context.classList.add(`${this.stylingBaseClass}${classSuffixHasResults}`)
-      this.input.addAttribute('aria-activedescendant')
       this.input.setAttribute('aria-expanded', true)
       this.setAriaStatus()
     }
