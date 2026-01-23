@@ -125,6 +125,15 @@ To use the component in a nunjucks template:
       <td>string</td>
       <td>Optional initial value of the input.</td>
     </tr>
+    <tr>
+      <td><b>fetchDelay</b></td>
+      <td>number</td>
+      <td>
+        Optional value for a delay (in ms) before calling the API. Defaults to 500ms. This is to reduce the number
+        of API calls made as the user types, and therefore reduce the risk of being rate limited (the limit stands
+        at 600 requests per minute).
+      </td>
+    </tr>
   </table>
 </details>
 

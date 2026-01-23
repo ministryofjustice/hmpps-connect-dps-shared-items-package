@@ -10,18 +10,26 @@ export const abortError = 'AbortError'
 export const abortTimeout = 'AbortTimeout'
 
 class AbortableFetch {
-  constructor(url) {
+  constructor(url, options) {
     this.url = url
     this.controller = new window.AbortController()
     this.status = FetchStatus.unsent
+    this.fetchDelay = options?.fetchDelay || 500
   }
 
   async send() {
     this.status = FetchStatus.loading
     try {
+      // Abortable delay before querying the API to limit the rate of requests when someone is typing:
+      await new Promise((resolve) => {
+        setTimeout(resolve, this.fetchDelay)
+        this.controller.signal.addEventListener('abort', () => { resolve() }, { once: true })
+      })
+
       setTimeout(() => {
         this.controller.abort(abortTimeout)
       }, 5000)
+
       const response = await window.fetch(this.url, { signal: this.controller.signal })
 
       if (!(+response.status === 200)) {

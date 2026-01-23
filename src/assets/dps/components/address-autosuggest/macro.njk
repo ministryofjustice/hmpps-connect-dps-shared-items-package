@@ -16,6 +16,7 @@
                 data-error-api="The address search is not working right now. Enter the address manually to continue."
                 data-styling-base-class="hmpps-address-autosuggest"
                 data-find-url="{{ options.findUrl or "/api/addresses/find" }}"
+                data-fetch-delay="{{ options.fetchDelay or 500 }}"
         >
             {{ govukInput({
                 id: 'address-autosuggest-input',
