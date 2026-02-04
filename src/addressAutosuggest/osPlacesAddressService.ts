@@ -20,12 +20,12 @@ const knownIssueSearchTermReplacements: Record<string, { osPlaces: string; fuse:
 }
 
 export interface AddressesMatchingQueryConfig {
-  osPlacesQueryParamOverrides: Record<string, unknown>
-  fuzzyMatchOptionOverrides: IFuseOptions<OsAddress>
+  osPlacesQueryParamOverrides?: Record<string, unknown>
+  fuzzyMatchOptionOverrides?: IFuseOptions<OsAddress>
 }
 
 export interface AddressesUprnQueryConfig {
-  osPlacesQueryParamOverrides: Record<string, unknown>
+  osPlacesQueryParamOverrides?: Record<string, unknown>
 }
 
 export default class OsPlacesAddressService {

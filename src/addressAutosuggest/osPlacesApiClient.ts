@@ -13,12 +13,18 @@ export default class OsPlacesApiClient {
     freeTextQuery: string,
     queryParamOverrides: Record<string, unknown> = {},
   ): Promise<OsPlacesQueryResponse> {
+    const dataset = queryParamOverrides.dataset || 'LPI' // LPI chosen as default since it appears to perform better, especially for business addresses
+
     const queryParams: Record<string, unknown> = {
       query: freeTextQuery,
       key: this.config.apiKey,
       lr: 'EN',
-      fq: ['LOGICAL_STATUS_CODE:1', 'LPI_LOGICAL_STATUS_CODE:1'], // only want active addresses
-      dataset: 'LPI', // LPI chosen as default since it appears to perform better, especially for business addresses
+      fq: [
+        // only want active addresses
+        'LOGICAL_STATUS_CODE:1',
+        ...(dataset === 'LPI' ? ['LPI_LOGICAL_STATUS_CODE:1'] : []),
+      ],
+      dataset,
       ...queryParamOverrides,
     }
 
