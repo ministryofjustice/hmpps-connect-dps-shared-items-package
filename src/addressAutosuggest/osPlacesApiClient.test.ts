@@ -40,8 +40,17 @@ describe('osPlacesApiClient', () => {
     it('should allow query parameter override', async () => {
       fakeOsPlaceApi
         .get(
-          `/find?query=${testQuery}&key=${apiKey}&lr=EN&fq=LOGICAL_STATUS_CODE%3A1&fq=LPI_LOGICAL_STATUS_CODE%3A1&dataset=DPA`,
+          `/find?query=${testQuery}&key=${apiKey}&lr=EN&fq=LOGICAL_STATUS_CODE%3A1&fq=LPI_LOGICAL_STATUS_CODE%3A1&dataset=LPI&foo=bar`,
         )
+        .reply(200, mockOsPlacesAddressQueryResponse)
+
+      const output = await osPlacesApiClient.getAddressesByFreeTextQuery(testQuery, { foo: 'bar' })
+      expect(output).toEqual(mockOsPlacesAddressQueryResponse)
+    })
+
+    it('default fq query parameters depend on dataset', async () => {
+      fakeOsPlaceApi
+        .get(`/find?query=${testQuery}&key=${apiKey}&lr=EN&fq=LOGICAL_STATUS_CODE%3A1&dataset=DPA`)
         .reply(200, mockOsPlacesAddressQueryResponse)
 
       const output = await osPlacesApiClient.getAddressesByFreeTextQuery(testQuery, { dataset: 'DPA' })
