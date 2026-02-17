@@ -87,27 +87,6 @@ export const alertFlagLabels: AlertFlagLabel[] = [
   },
   { alertCodes: ['RCON'], classes: 'dps-alert-status dps-alert-status--risk', label: 'Conflict' },
   {
-    alertCodes: ['RCDR'],
-    classes: 'dps-alert-status dps-alert-status--quarantined',
-    label: 'Quarantined',
-  },
-  {
-    alertCodes: ['URCU'],
-    classes: 'dps-alert-status dps-alert-status--reverse-cohorting-unit',
-    label: 'Reverse Cohorting Unit',
-  },
-  {
-    alertCodes: ['UPIU'],
-    classes: 'dps-alert-status dps-alert-status--protective-isolation-unit',
-    label: 'Protective Isolation Unit',
-  },
-  { alertCodes: ['USU'], classes: 'dps-alert-status dps-alert-status--shielding-unit', label: 'Shielding Unit' },
-  {
-    alertCodes: ['URS'],
-    classes: 'dps-alert-status dps-alert-status--refusing-to-shield',
-    label: 'Refusing to shield',
-  },
-  {
     alertCodes: ['RKS'],
     classes: 'dps-alert-status dps-alert-status--risk-to-known-adults',
     label: 'Risk to known adults',
