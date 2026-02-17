@@ -91,6 +91,7 @@ export const alertFlagLabels: AlertFlagLabel[] = [
     classes: 'dps-alert-status dps-alert-status--risk-to-known-adults',
     label: 'Risk to known adults',
   },
+  { alertCodes: ['VIP'], classes: 'dps-alert-status dps-alert-status--isolated-prisoner', label: 'Isolated' },
   {
     alertCodes: ['PVN'],
     classes: 'dps-alert-status dps-alert-status--multicase dps-alert-status--visor',
