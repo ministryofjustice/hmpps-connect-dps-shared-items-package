@@ -29,13 +29,17 @@
   }
 }
 
-@mixin alertType($colour) {
+@mixin alertType($colour, $hover: null) {
   border-color: $colour;
 
   @include unify-parent('a') {
     &:hover, &:focus {
       text-decoration: none;
-      background-color: $colour;
+      @if $hover {
+        background-color: $hover;
+      } @else {
+        background-color: $colour;
+      }
       color: white;
     }
 
@@ -55,35 +59,39 @@
   background-color: white;
 
   &--care-leaver {
-    @include alertType(#00703c);
+    @include alertType(#00703c, #03532e);
   }
 
   &--ex-armed-forces {
-    @include alertType(#85994b);
+    @include alertType(#85994b, #687b3d);
   }
 
   &--medical {
-    @include alertType(#5694ca);
+    @include alertType(#5190c8, #3879b2);
   }
 
   &--other {
-    @include alertType(#d53880);
+    @include alertType(#d53880, #bf3374);
   }
 
   &--MAPPP-case {
-    @include alertType(#28a197);
+    @include alertType(#279b91, #21837a);
   }
 
   &--security {
-    @include alertType(#003078);
+    @include alertType(#003078, #042556);
   }
 
   &--risk {
-    @include alertType(#d4351c);
+    @include alertType(#d4351c, #ad2d19);
   }
 
   &--self-harm {
-    @include alertType(#f47738);
+    @include alertType(#f2590d, #cb4b0b);
+  }
+
+  &--vulnerability {
+    @include alertType(#2ea01c, #26711a);
   }
 
 
