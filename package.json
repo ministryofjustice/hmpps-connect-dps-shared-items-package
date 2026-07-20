@@ -75,5 +75,8 @@
     "@types/bunyan": "^1.8.11",
     "fuse.js": "7.4.2",
     "superagent": "10.3.0"
+  },
+  "overrides": {
+    "js-yaml": "^5.1.0"
   }
 }
