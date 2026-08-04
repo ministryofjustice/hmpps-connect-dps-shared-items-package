@@ -363,7 +363,7 @@ export class AutosuggestUi {
         content = this.ariaNResults.replace('{n}', this.numberOfResults)
       }
     }
-    this.ariaStatus.innerHTML = content
+    this.ariaStatus.textContent = content
   }
 
   emboldenMatch(string, query) {
