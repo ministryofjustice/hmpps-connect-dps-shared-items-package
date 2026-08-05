@@ -297,7 +297,11 @@ export class AutosuggestUi {
 
       const message = reason === NoResults.type_more ? this.typeMore : this.noResults
       this.setAriaStatus(message)
-      this.listbox.innerHTML = `<li class="${this.stylingBaseClass}${classSuffixOption} ${this.stylingBaseClass}${classSuffixOptionNoResults}">${message}</li>`
+      this.listbox.innerHTML = ''
+      const noResultsItem = document.createElement('li')
+      noResultsItem.className = `${this.stylingBaseClass}${classSuffixOption} ${this.stylingBaseClass}${classSuffixOptionNoResults}`
+      noResultsItem.textContent = message
+      this.listbox.appendChild(noResultsItem)
     } else {
       this.displayAPIError()
     }
@@ -308,7 +312,7 @@ export class AutosuggestUi {
     this.input.setAttribute('disabled', true)
     this.clearListbox()
     this.errorContainer.classList.remove('hmpps-display-none')
-    this.errorTextContainer.innerHTML = this.errorMessage
+    this.errorTextContainer.textContent = this.errorMessage
     this.ariaStatus.setAttribute('aria-hidden', 'true')
     this.setAriaStatus(this.errorMessage)
   }
@@ -363,7 +367,7 @@ export class AutosuggestUi {
         content = this.ariaNResults.replace('{n}', this.numberOfResults)
       }
     }
-    this.ariaStatus.innerHTML = content
+    this.ariaStatus.textContent = content
   }
 
   emboldenMatch(string, query) {
