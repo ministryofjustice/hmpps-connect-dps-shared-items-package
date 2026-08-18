@@ -337,7 +337,7 @@ export class AutosuggestUi {
           option.classList.add(`${this.stylingBaseClass}${classSuffixOptionFocused}`)
           option.setAttribute('aria-selected', true)
           this.input.setAttribute('aria-activedescendant', option.getAttribute('id'))
-          const optionText = option.innerHTML.replace('<strong>', '').replace('</strong>', '')
+          const optionText = option.innerHTML.replace('<b>', '').replace('</b>', '')
           this.setAriaStatus(optionText)
         } else {
           option.classList.remove(`${this.stylingBaseClass}${classSuffixOptionFocused}`)
@@ -385,7 +385,7 @@ export class AutosuggestUi {
       .split(' ')
       .reduce((accumulator, currentValue) => {
         let reg = new RegExp(`(?<!<)${currentValue}(?![\\w\\s]*>)`, 'gi')
-        return accumulator.replace(reg, '<strong>$&</strong>')
+        return accumulator.replace(reg, '<b>$&</b>')
       }, string)
   }
 
