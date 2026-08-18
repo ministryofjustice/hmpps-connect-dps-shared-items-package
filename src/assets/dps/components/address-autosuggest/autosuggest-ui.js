@@ -51,7 +51,7 @@ export class AutosuggestUi {
     this.resultOptions = []
     this.data = []
     this.numberOfResults = 0
-    this.highlightedResultIndex = 0
+    this.highlightedResultIndex = null
     this.blurring = false
     this.blurTimeout = null
     this.scrolling = false
@@ -243,6 +243,7 @@ export class AutosuggestUi {
     this.context.classList.remove(`${this.stylingBaseClass}${classSuffixHasResults}`)
     this.input.removeAttribute('aria-activedescendant')
     this.input.setAttribute('aria-expanded', false)
+    this.setHighlightedResult(null)
     this.setAriaStatus()
   }
 
@@ -260,7 +261,7 @@ export class AutosuggestUi {
         return listElement
       }) ?? []
 
-    this.setHighlightedResult(0)
+    this.setHighlightedResult(null)
     this.input.setAttribute('aria-expanded', this.numberOfResults ? 'true' : 'false')
 
     if (!!this.numberOfResults && this.sanitisedQuery.length >= this.minChars) {
@@ -322,9 +323,11 @@ export class AutosuggestUi {
 
     if (this.highlightedResultIndex === null) {
       this.input.removeAttribute('aria-activedescendant')
-    } else if (this.numberOfResults) {
+    }
+
+    if (this.numberOfResults) {
       this.resultOptions.forEach((option, optionIndex) => {
-        if (optionIndex === index) {
+        if (index !== null && optionIndex === index) {
           if (this.isAboveViewport(option)) {
             this.handleScroll(option, true)
           }
@@ -347,7 +350,12 @@ export class AutosuggestUi {
   selectResult(index) {
     if (!this.results.length) return
 
-    const result = this.results[index || this.highlightedResultIndex || 0]
+    const selectedIndex = typeof index === 'number' ? index : this.highlightedResultIndex
+    if (selectedIndex === null || selectedIndex === undefined) return
+
+    const result = this.results[selectedIndex]
+    if (!result) return
+
     this.onSelect(result)
     this.clearListbox()
     this.setAriaStatus(`${this.ariaYouHaveSelected}: ${result.displayText}.`)
