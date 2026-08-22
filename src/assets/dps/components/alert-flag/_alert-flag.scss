@@ -1,4 +1,6 @@
+@use "sass:color";
 @use "sass:selector";
+@use "govuk-frontend/dist/govuk/helpers/colour";
 
 @mixin unify-parent($child) {
   @at-root #{selector.unify(&, $child)} {
@@ -20,7 +22,7 @@
   }
 
   @media print {
-    margin-bottom: 0px !important;
+    margin-bottom: 0 !important;
     font-size: 12px;
     color: black !important;
     border: none !important;
@@ -44,7 +46,7 @@
     }
 
     &:focus {
-      box-shadow: 0 0 0 3px $govuk-focus-colour;
+      box-shadow: 0 0 0 3px colour.govuk-functional-colour(focus);
     }
   }
 }
@@ -186,7 +188,7 @@
   }
 
   &--reverse-cohorting-unit {
-    @include alertType(mix(white, #00703c, 20%));
+    @include alertType(color.mix(white, #00703c, 20%));
   }
 
   &--protective-isolation-unit {
@@ -220,4 +222,3 @@
     min-height: 30px;
   }
 }
-

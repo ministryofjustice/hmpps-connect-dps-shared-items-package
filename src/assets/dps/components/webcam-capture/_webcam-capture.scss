@@ -1,5 +1,5 @@
-@import 'govuk-frontend/dist/govuk/helpers/spacing';
-@import 'govuk-frontend/dist/govuk/settings/colours-applied';
+@use "govuk-frontend/dist/govuk/helpers/colour";
+@use "govuk-frontend/dist/govuk/helpers/spacing";
 
 $hmpps-webcam-capture-width: 221px;
 $hmpps-webcam-capture-height: 276px;
@@ -7,11 +7,11 @@ $hmpps-webcam-capture-height: 276px;
 .hmpps-webcam-capture {
   .hmpps-webcam-capture-photo-container {
     width: 100%;
-    @include govuk-responsive-padding(2);
-    @include govuk-responsive-margin(6, 'bottom');
+    @include spacing.govuk-responsive-padding(2);
+    @include spacing.govuk-responsive-margin(6, 'bottom');
 
     &__with-border {
-      border: 1px solid $govuk-border-colour;
+      border: 1px solid colour.govuk-functional-colour(border);
     }
 
     &__error {
@@ -42,14 +42,14 @@ $hmpps-webcam-capture-height: 276px;
     }
 
     &__description {
-      @include govuk-responsive-padding(2, 'top');
+      @include spacing.govuk-responsive-padding(2, 'top');
       display: flex;
       gap: 10px;
       margin-left: 24px;
       min-width: 0;
 
       h2 {
-        @include govuk-responsive-margin(3, 'bottom');
+        @include spacing.govuk-responsive-margin(3, 'bottom');
       }
 
     }
@@ -122,4 +122,3 @@ $hmpps-webcam-capture-height: 276px;
     display: none;
   }
 }
-
