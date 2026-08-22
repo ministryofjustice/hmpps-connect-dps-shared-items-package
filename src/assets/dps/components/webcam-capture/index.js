@@ -143,10 +143,10 @@ function hmppsWebcamCapture(component) {
   function pageInit() {
     photoPreviewContainer.style.display = 'none'
     photoCaptureContainer.style.display = 'block'
-    getWebcamList()
+    return getWebcamList()
   }
 
-  pageInit()
+  return pageInit()
 }
 
 export function init() {
