@@ -41,35 +41,35 @@ support in setting this up) and get an API key.
 A basic example to set up the endpoint is:
 
 ```typescript
-  import { ApiConfig } from '@ministryofjustice/hmpps-rest-client'
-  import { OsPlacesApiClient, OsPlacesAddressService } from '@ministryofjustice/hmpps-connect-dps-shared-items'
-  import logger from './logger' // import the logger
+import { ApiConfig } from '@ministryofjustice/hmpps-rest-client'
+import { OsPlacesApiClient, OsPlacesAddressService } from '@ministryofjustice/hmpps-connect-dps-shared-items'
+import logger from './logger' // import the logger
 
-  // normally found in a config.ts file...
-  const osPlacesApiConfig: ApiConfig & { apiKey: string } = {
-    url: 'https://api.os.uk/search/places/v1',
-    apiKey: 'THE-API-KEY',
-    ... and timeout config
+// normally found in a config.ts file...
+const osPlacesApiConfig: ApiConfig & { apiKey: string } = {
+  url: 'https://api.os.uk/search/places/v1',
+  apiKey: 'THE-API-KEY',
+  // ... and timeout config
+}
+
+// normally set up in a data/index.ts file...
+const osPlacesApiClient = new OsPlacesApiClient(logger, osPlacesApiConfig)
+
+// normally set up in a services/index.ts file...
+const osPlacesAddressService = new OsPlacesAddressService(logger, osPlacesApiClient)
+
+// ... router initialisation
+
+// simple router setup:
+// the path can be customised, see below
+router.get('/api/addresses/find/:query', async (req: Request, res: Response) => {
+  try {
+    const results = await osPlacesAddressService.getAddressesMatchingQuery(req.params.query)
+    res.json({ status: 200, results })
+  } catch (error) {
+    res.status(getErrorStatus(error)).json({ status: getErrorStatus(error), error: error.message })
   }
-
-  // normally set up in a data/index.ts file...
-  const osPlacesApiClient = new OsPlacesApiClient(logger, osPlacesApiConfig)
-
-  // normally set up in a services/index.ts file...
-  const osPlacesAddressService = new OsPlacesAddressService(logger, osPlacesApiClient)
-
-  ... router initialisation
-
-  // simple router setup:
-  // the path can be customised, see below
-  router.get('/api/addresses/find/:query', async (req: Request, res: Response) => {
-    try {
-      const results = await osPlacesAddressService.getAddressesMatchingQuery(req.params.query)
-      res.json({ status: 200, results })
-    } catch (error) {
-      res.status(getErrorStatus(error)).json({ status: getErrorStatus(error), error: error.message })
-    }
-  })
+})
 ```
 
 the frontend javascript can then call this endpoint to retrieve the list of results to display in the UI.
@@ -77,18 +77,18 @@ the frontend javascript can then call this endpoint to retrieve the list of resu
 ### Nunjucks macro
 
 To use the component in a nunjucks template:
-```javascript
-  {% from "dps/components/address-autosuggest/macro.njk" import addressAutosuggest %}
+```nunjucks
+{% from "dps/components/address-autosuggest/macro.njk" import addressAutosuggest %}
 
-  ...
+...
 
-  {{ addressAutosuggest({
-    uprn: 'optional prepopulated uprn value',
-    inputValue: 'some prepopulated input value, for instance after validation error',
-    errorMessage: 'some error message, for instance after validation error',
-    classes: 'some-custom-styling-class',
-    findUrl: '/api/addresses/find'
-  }) }}
+{{ addressAutosuggest({
+  uprn: 'optional prepopulated uprn value',
+  inputValue: 'some prepopulated input value, for instance after validation error',
+  errorMessage: 'some error message, for instance after validation error',
+  classes: 'some-custom-styling-class',
+  findUrl: '/api/addresses/find'
+}) }}
 ```
 
 <details>
