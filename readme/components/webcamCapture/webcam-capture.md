@@ -44,20 +44,20 @@ Error reporting (optional):
 A GET request is sent to the URL `/api/report-error?pageUrl={ENCODED_PAGE_URL}&error={ERROR_NAME}`.
 
 ## Usage
-```javascript
-  {% from "dps/components/webcam-capture/macro.njk" import hmppsWebcamCapture %}
+```nunjucks
+{% from "dps/components/webcam-capture/macro.njk" import hmppsWebcamCapture %}
 ```
 
 ```javascript
-    {{ hmppsWebcamCapture(
-      {
-        cancelUrl: "/prisoner/image",
-        photoInstructions: { html: "<div>Example</div>" },
-        fileName: "profile-webcam-image",
-        fileField: { name: "exampleFieldName" },
-        reportErrors: true
-      }
-    ) }}
+{{ hmppsWebcamCapture(
+  {
+    cancelUrl: "/prisoner/image",
+    photoInstructions: { html: "<div>Example</div>" },
+    fileName: "profile-webcam-image",
+    fileField: { name: "exampleFieldName" },
+    reportErrors: true
+  }
+) }}
 ```
 
 <details>
