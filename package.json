@@ -17,7 +17,7 @@
     "clean": "rm -rf ./dist/",
     "test": "jest",
     "test:ci": "jest --runInBand",
-    "typecheck": "tsc",
+    "typecheck": "tsc && tsc -p src/assets",
     "lint": "eslint . --cache --max-warnings 0",
     "lint:fix": "eslint . --cache --max-warnings 0 --fix",
     "security_audit": "npx audit-ci --config audit-ci.json",
@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@ministryofjustice/eslint-config-hmpps": "2.0.0-alpha.2",
+    "@ministryofjustice/frontend-types": "2.0.1",
     "@ministryofjustice/hmpps-npm-script-allowlist": "0.0.6",
     "@ministryofjustice/hmpps-precommit-hooks": "3.0.2",
     "@rollup/plugin-commonjs": "^29.0.3",

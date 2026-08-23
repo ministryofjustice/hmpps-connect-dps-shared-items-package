@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "es2022"],
+    "outDir": "../../dist/assets",
+    "types": ["@ministryofjustice/frontend-types"],
+    "allowJs": true,
+    "noEmit": false,
+    "declaration": false,
+    "declarationDir": null
+  },
+  "include": ["**/*.js", "**/*.ts"],
+  "exclude": []
+}

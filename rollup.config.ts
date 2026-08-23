@@ -8,7 +8,7 @@ import pkg from './package.json'
 
 export default [
   {
-    input: ['src/index.ts', 'src/types/**/*.ts', '!**/*test*'],
+    input: ['src/index.ts', 'src/types/**/*.ts', '!**/*test*', '!src/assets'],
     output: [
       { file: pkg.main, format: 'cjs', sourcemap: true },
       { file: pkg.module, format: 'esm', sourcemap: true },
@@ -20,12 +20,30 @@ export default [
         noEmitOnError: true,
       }),
       multiEntry(),
-      copy({ targets: [{ src: 'src/assets', dest: 'dist' }] }),
+      copy({
+        targets: [{ src: 'src/assets', dest: 'dist' }],
+        filter: src => !src.endsWith('/tsconfig.json'),
+      }),
     ],
     external: [...Object.keys(pkg.dependencies || {})],
   },
   {
-    input: ['dist/assets/scss/all.ts'],
+    input: 'src/assets/js/all.js',
+    output: {
+      dir: 'dist/assets',
+      format: 'esm',
+      preserveModules: true,
+      preserveModulesRoot: 'src/assets',
+    },
+    plugins: [
+      typescript({
+        tsconfig: './src/assets/tsconfig.json',
+        noEmitOnError: true,
+      }),
+    ],
+  },
+  {
+    input: 'dist/assets/scss/all.ts',
     output: { file: 'dist/assets/scss/all.js', format: 'cjs' },
     plugins: [scss({ fileName: 'all.css' })],
   },
