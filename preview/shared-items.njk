@@ -1,7 +1,9 @@
 {% extends "govuk/template.njk" %}
 
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "dps/components/address-autosuggest/macro.njk" import addressAutosuggest %}
 {% from "dps/components/alert-flag/macro.njk" import alertFlag %}
+{% from "dps/components/modal/macro.njk" import hmppsModal %}
 {% from "dps/components/webcam-capture/macro.njk" import hmppsWebcamCapture %}
 
 {% block head %}
@@ -34,6 +36,40 @@
           }
         }) }}
       {% endfor %}
+
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
+
+      <h2 class="govuk-heading-l">Modal</h2>
+      {{ govukButton({
+        text: "Open",
+        href: "/",
+        classes: "hmpps-modal__trigger-show",
+        attributes: { "data-hmpps-modal-id": "modal1" }
+      }) }}
+      {{ govukButton({
+        text: "Open from URL",
+        href: "/",
+        classes: "hmpps-modal__trigger-show",
+        attributes: { "data-hmpps-modal-id": "modal1", "data-hmpps-modal-url": "/slow-modal-html" }
+      }) }}
+      {{ govukButton({
+        text: "Open from failing URL",
+        href: "/",
+        classes: "hmpps-modal__trigger-show",
+        attributes: { "data-hmpps-modal-id": "modal1", "data-hmpps-modal-url": "/404" }
+      }) }}
+
+      {% call hmppsModal({
+        id: "modal1",
+        title: "Modal dialogue box"
+      }) %}
+        <p>Pre-rendered modal content</p>
+        {{ govukButton({
+          text: "Close",
+          href: "#",
+          classes: "hmpps-modal__trigger-hide"
+        }) }}
+      {% endcall %}
 
       <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
 

@@ -5,7 +5,7 @@
 
 An accessible address autosuggest component that provides matching addresses as the user types into the input box.
 Address results provided by the [OSPlaces API](https://docs.os.uk/os-apis/accessing-os-apis/os-places-api/technical-specification).
-Client side javascript based heavily on Based on ONSDigital's [address-input](https://github.com/ONSdigital/design-system/blob/main/src/components/address-input).
+Client side javascript based heavily on ONSDigital's [address-input](https://github.com/ONSdigital/design-system/blob/main/src/components/address-input).
 
 ## Output
 

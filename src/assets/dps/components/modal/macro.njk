@@ -1,0 +1,48 @@
+{#
+Parameters as JSDoc:
+/**
+ * @param {Object} [params]
+ * @param {string} params.id - The id attribute added to the component’s wrapper element.
+ *                             This id is needed to lookup or trigger the modal to show.
+ * @param {string} params.title - The dialogue box’s title.
+ * @param {string} [params.classes] - Optional classes to add to the component’s container element.
+ */
+#}
+{% macro hmppsModal(params) %}
+  <div id="{{ params.id }}" class="hmpps-modal {{ params.classes }}" data-module="hmpps-modal" hidden>
+    <div class="hmpps-modal__backdrop hmpps-modal__trigger-hide"></div>
+    <dialog class="hmpps-modal__dialogue-box" tabindex="0">
+      <header>
+        <h1 id="{{ params.id }}-modal-title">{{ params.title }}</h1>
+        <button class="hmpps-modal__close-button hmpps-modal__trigger-hide" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 3.405 14.595 0 9 5.595 3.405 0 0 3.406 5.595 9 0 14.594 3.406 18 9 12.406 14.595 18 18 14.595 12.405 9Z" fill="currentColor"/>
+          </svg>
+        </button>
+      </header>
+      <section class="hmpps-modal__content">
+        {% if caller %}
+          {{ caller() }}
+        {% endif %}
+      </section>
+    </dialog>
+
+    <template class="hmpps-modal__loading-graphic-template">
+      <svg class="hmpps-modal__loading-graphic" width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <rect x="11" y="1" width="2" height="5" opacity=".14"/>
+          <rect x="11" y="1" width="2" height="5" transform="rotate(30 12 12)" opacity=".29"/>
+          <rect x="11" y="1" width="2" height="5" transform="rotate(60 12 12)" opacity=".43"/>
+          <rect x="11" y="1" width="2" height="5" transform="rotate(90 12 12)" opacity=".57"/>
+          <rect x="11" y="1" width="2" height="5" transform="rotate(120 12 12)" opacity=".71"/>
+          <rect x="11" y="1" width="2" height="5" transform="rotate(150 12 12)" opacity=".86"/>
+          <rect x="11" y="1" width="2" height="5" transform="rotate(180 12 12)"/>
+        </g>
+      </svg>
+    </template>
+    <template class="hmpps-modal__error-message-template">
+      <h2 class="govuk-heading-s">Something went wrong</h2>
+      <p>The error has been logged. Please try again.</p>
+    </template>
+  </div>
+{% endmacro %}

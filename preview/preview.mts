@@ -23,7 +23,7 @@ const js = (
   ).generate({})
 ).output[0].code
 
-const prisonNumber = 'A1234AA'
+const prisonerNumber = 'A1234AA'
 const html = nunjucks
   .configure([
     'preview',
@@ -32,7 +32,7 @@ const html = nunjucks
     'dist/assets/',
   ])
   .render('shared-items.njk', {
-    prisonNumber,
+    prisonerNumber,
     alerts: getAlertFlagLabelsForAlerts(
       [
         {
@@ -49,7 +49,7 @@ const html = nunjucks
         },
       ].map(alertCode => ({
         alertUuid: '01a02e89-7c79-705c-883a-9723e7d2cb83',
-        prisonNumber,
+        prisonNumber: prisonerNumber,
         alertCode,
         description: 'Alert',
         activeFrom: '2026-01-01',
@@ -74,6 +74,11 @@ const server = http.createServer(async (req, res) => {
   } else if (path === '/shared-items.js') {
     res.writeHead(200, { 'content-type': 'application/javascript; charset=utf-8' })
     res.end(js)
+  } else if (path === '/slow-modal-html') {
+    setTimeout(() => {
+      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' })
+      res.end('<p>Content loaded from url.</p>')
+    }, 3000)
   } else if (path.startsWith('/api/addresses/find/')) {
     const query = path.slice('/api/addresses/find/'.length)
     res.writeHead(200, { 'content-type': 'application/json; charset=utf-8' })

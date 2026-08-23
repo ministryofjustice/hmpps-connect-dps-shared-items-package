@@ -1,0 +1,148 @@
+@use "sass:math";
+@use "govuk-frontend/dist/govuk/helpers/colour";
+@use "govuk-frontend/dist/govuk/helpers/typography";
+@use "govuk-frontend/dist/govuk/settings/measurements";
+
+.hmpps-modal {
+  display: flex;
+  z-index: 2;
+
+  &[hidden] {
+    display: none !important;
+  }
+}
+
+.hmpps-modal, .hmpps-modal__backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.hmpps-modal__backdrop {
+  background: rgb(colour.govuk-colour("black"), 0.6);
+}
+
+.hmpps-modal__dialogue-box {
+  display: block;
+  padding: 0;
+  margin: auto;
+  min-width: 400px;
+  max-width: 800px;
+  min-height: 300px;
+  max-height: 90vh;
+  z-index: 2;
+  position: relative;
+  background: colour.govuk-colour("white");
+  border: 3px solid colour.govuk-colour("black");
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px colour.govuk-functional-colour(focus);
+  }
+
+  header {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
+    background: colour.govuk-colour("black");
+    color: colour.govuk-colour("white");
+    margin-top: 0;
+    padding: 0 0 0 measurements.$govuk-gutter;
+    height: 45px;
+
+    h1 {
+      @include typography.govuk-font($size: 19, $weight: "bold");
+      margin: 0;
+    }
+  }
+}
+
+.hmpps-modal__close-button {
+  all: unset;
+  appearance: none;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding-top: 3px;
+  margin-top: -3px;
+  cursor: pointer;
+  background: colour.govuk-colour("black");
+  color: colour.govuk-colour("white");
+
+  &:hover, &:focus {
+    background: colour.govuk-functional-colour(focus);
+    color: colour.govuk-colour("black");
+
+    @media (forced-colors: active) and (prefers-color-scheme: dark) {
+      background: colour.govuk-colour("black");
+      color: colour.govuk-colour("yellow");
+    }
+  }
+}
+
+.hmpps-modal__content {
+  $height: 300px;
+  $buffer: 70px;
+  padding: measurements.$govuk-gutter-half measurements.$govuk-gutter 0 measurements.$govuk-gutter;
+  max-height: calc(90vh - #{$buffer});
+  min-height: #{$height - $buffer};
+  overflow: auto;
+
+  .hmpps-modal__loading-graphic {
+    width: 50px;
+    display: block;
+    margin: #{math.div($height, 2) - $buffer} auto auto;
+
+    g {
+      animation: hmpps-modal__loading-graphic-animation 1s step-end infinite;
+      transform-origin: center;
+      fill: colour.govuk-colour("black");
+
+      @media (forced-colors: active) and (prefers-color-scheme: dark) {
+        fill: colour.govuk-colour("white");
+      }
+    }
+  }
+}
+
+@keyframes hmpps-modal__loading-graphic-animation {
+  8.3% {
+    transform: rotate(30deg)
+  }
+  16.6% {
+    transform: rotate(60deg)
+  }
+  25% {
+    transform: rotate(90deg)
+  }
+  33.3% {
+    transform: rotate(120deg)
+  }
+  41.6% {
+    transform: rotate(150deg)
+  }
+  50% {
+    transform: rotate(180deg)
+  }
+  58.3% {
+    transform: rotate(210deg)
+  }
+  66.6% {
+    transform: rotate(240deg)
+  }
+  75% {
+    transform: rotate(270deg)
+  }
+  83.3% {
+    transform: rotate(300deg)
+  }
+  91.6% {
+    transform: rotate(330deg)
+  }
+  100% {
+    transform: rotate(360deg)
+  }
+}
