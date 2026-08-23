@@ -25,7 +25,7 @@ or
 
 ## Usage
 ```nunjucks
-{% from "dps/components/alert-flags/macro.njk" import alertFlags %}
+{% from "dps/components/alert-flag/macro.njk" import alertFlag %}
 ```
 
 ```nunjucks

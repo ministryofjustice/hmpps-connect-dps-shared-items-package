@@ -73,3 +73,4 @@ connectDps.initAll()
 ## For Library Developers
 
 1. [Publishing to NPM](readme/publishing.md)
+2. To preview all components locally, run `npm run build` and then `npm start`

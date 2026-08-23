@@ -1,0 +1,68 @@
+{% extends "govuk/template.njk" %}
+
+{% from "dps/components/address-autosuggest/macro.njk" import addressAutosuggest %}
+{% from "dps/components/alert-flag/macro.njk" import alertFlag %}
+{% from "dps/components/webcam-capture/macro.njk" import hmppsWebcamCapture %}
+
+{% block head %}
+  <link href="/shared-items.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-xl">
+        Connect DPS shared items
+      </h1>
+
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
+
+      <h2 class="govuk-heading-l">Address autosuggest</h2>
+      {{ addressAutosuggest({
+        findUrl: '/api/addresses/find'
+      }) }}
+
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
+
+      <h2 class="govuk-heading-l">Alert flags</h2>
+      {% for alert in alerts %}
+        {{ alertFlag({
+          alert: alert,
+          href: "#",
+          attributes: {
+            "data-prisoner-number": prisonNumber
+          }
+        }) }}
+      {% endfor %}
+
+      <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
+
+      <h2 class="govuk-heading-l">Webcam capture</h2>
+      {% set photoInstructions %}
+        <div>
+          <p class="govuk-heading-s govuk-!-margin-bottom-2">To capture a photo with a webcam:</p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>ask the person to stand in front of the board</li>
+            <li>make sure the person is stood centrally within the webcam’s view and not to one side</li>
+            <li>after you’ve checked the person is positioned centrally, take the photo</li>
+            <li>you can retake the photo, or save and continue to edit it</li>
+          </ul>
+        </div>
+      {% endset %}
+      <form action="/inspect" method="post" enctype="multipart/form-data" novalidate>
+        {{ hmppsWebcamCapture({
+          cancelUrl: "/",
+          photoInstructions: { html: photoInstructions },
+          fileName: "webcam-capture",
+          fileField: { name: "webcamCapture" },
+          reportErrors: true
+        }) }}
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
+
+{% block bodyEnd %}
+  <script type="module" src="/shared-items.js"></script>
+{% endblock %}

@@ -93,8 +93,8 @@ A GET request is sent to the URL `/api/report-error?pageUrl={ENCODED_PAGE_URL}&e
       <td>Optional - The name of the input field the file is saved to (default: "file")</td>
     </tr>
     <tr>
-      <td><b>fileField.name</b></td>
-      <td>string</td>
+      <td><b>reportErrors</b></td>
+      <td>boolean</td>
       <td>
         Optional - Whether to report errors by sending a request to the
         <code>/api/report-error</code> endpoint.
