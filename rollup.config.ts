@@ -1,3 +1,4 @@
+import fs from 'node:fs/promises'
 import typescript from '@rollup/plugin-typescript'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import multiEntry from '@rollup/plugin-multi-entry'
@@ -45,7 +46,14 @@ export default [
   {
     input: 'dist/assets/scss/all.ts',
     output: { file: 'dist/assets/scss/all.js', format: 'cjs' },
-    plugins: [scss({ fileName: 'all.css' })],
+    plugins: [
+      scss({ fileName: 'all.css' }),
+      {
+        name: 'cleanup',
+        closeBundle: () =>
+          Promise.all(['dist/assets/scss/all.js', 'dist/assets/scss/all.ts'].map(path => fs.rm(path, { force: true }))),
+      },
+    ],
   },
   {
     input: 'dist/types/public/**/*.d.ts',
