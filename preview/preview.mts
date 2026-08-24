@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import http from 'node:http'
 import util from 'node:util'
 import nunjucks from 'nunjucks'
@@ -59,7 +59,7 @@ const html = nunjucks
     ),
   })
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   const [path, qs = ''] = (req.url || '').split('?')
   const params = new URLSearchParams(qs)
 
@@ -85,20 +85,29 @@ const server = http.createServer((req, res) => {
     res.writeHead(204, { 'content-type': 'text/plain' })
     res.end()
   } else if (req.method === 'POST' && path === '/inspect') {
+    process.stderr.write('Query parameters:\n')
+    process.stderr.write(util.inspect(params))
+    process.stderr.write('\n')
+
     const chunks: Uint8Array[] = []
     req.on('data', chunk => chunks.push(chunk))
-    req.on('end', () => {
+    req.on('end', async () => {
       const body = Buffer.concat(chunks)
-      process.stderr.write('Query parameters:\n')
-      process.stderr.write(util.inspect(params))
-      process.stderr.write('\n')
-      process.stderr.write('Body written to preview/inspect.dat\n')
-      fs.writeFile('preview/inspect.dat', body, error => {
-        if (error) process.stderr.write(util.inspect(error))
+      fs.writeFile('preview/inspect.dat', body).then(() => {
+        process.stderr.write('Body written to preview/inspect.dat\n')
       })
       res.writeHead(302, { 'content-type': 'text/html', location: '/' })
       res.end('')
     })
+  } else if (path.startsWith('/assets/')) {
+    try {
+      const data = await fs.readFile(`node_modules/govuk-frontend/dist/govuk/assets/${path.slice('/assets/'.length)}`)
+      res.writeHead(200)
+      res.end(data)
+    } catch {
+      res.writeHead(404, { 'content-type': 'text/plain' })
+      res.end('Not Found')
+    }
   } else {
     res.writeHead(404, { 'content-type': 'text/plain' })
     res.end('Not Found')
