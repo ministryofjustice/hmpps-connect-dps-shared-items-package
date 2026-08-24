@@ -44,20 +44,20 @@ Error reporting (optional):
 A GET request is sent to the URL `/api/report-error?pageUrl={ENCODED_PAGE_URL}&error={ERROR_NAME}`.
 
 ## Usage
-```javascript
-  {% from "dps/components/webcam-capture/macro.njk" import hmppsWebcamCapture %}
+```nunjucks
+{% from "dps/components/webcam-capture/macro.njk" import hmppsWebcamCapture %}
 ```
 
-```javascript
-    {{ hmppsWebcamCapture(
-      {
-        cancelUrl: "/prisoner/image",
-        photoInstructions: { html: "<div>Example</div>" },
-        fileName: "profile-webcam-image",
-        fileField: { name: "exampleFieldName" },
-        reportErrors: true
-      }
-    ) }}
+```nunjucks
+{{ hmppsWebcamCapture(
+  {
+    cancelUrl: "/prisoner/image",
+    photoInstructions: { html: "<div>Example</div>" },
+    fileName: "profile-webcam-image",
+    fileField: { name: "exampleFieldName" },
+    reportErrors: true
+  }
+) }}
 ```
 
 <details>
@@ -93,8 +93,8 @@ A GET request is sent to the URL `/api/report-error?pageUrl={ENCODED_PAGE_URL}&e
       <td>Optional - The name of the input field the file is saved to (default: "file")</td>
     </tr>
     <tr>
-      <td><b>fileField.name</b></td>
-      <td>string</td>
+      <td><b>reportErrors</b></td>
+      <td>boolean</td>
       <td>
         Optional - Whether to report errors by sending a request to the
         <code>/api/report-error</code> endpoint.

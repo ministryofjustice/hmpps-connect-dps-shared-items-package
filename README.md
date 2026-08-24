@@ -27,7 +27,7 @@ npm install @ministryofjustice/hmpps-connect-dps-shared-items
 Add the `hmpps-connect-dps-shared-items` assets directory to nunjucks configuration in your application:
 
 ```javascript
-    const njkEnv = nunjucks.configure(
+const njkEnv = nunjucks.configure(
   [
     path.join(__dirname, '../../server/views'),
     ...,
@@ -48,11 +48,11 @@ then import the component into your nunjucks file:
 ### Styling
 Include the package scss within the `index.scss` file. You can either import all:
 ```scss
-  @import 'node_modules/@ministryofjustice/hmpps-connect-dps-shared-items/dist/assets/scss/all';
+@import 'node_modules/@ministryofjustice/hmpps-connect-dps-shared-items/dist/assets/scss/all';
 ```
 or import the specific component scss you are using, e.g:
 ```scss
-  @import 'node_modules/@ministryofjustice/hmpps-connect-dps-shared-items/dist/assets/dps/components/alert-flag/alert-flag';
+@import 'node_modules/@ministryofjustice/hmpps-connect-dps-shared-items/dist/assets/dps/components/alert-flag/alert-flag';
 ```
 
 ### Client side javascript
@@ -73,3 +73,4 @@ connectDps.initAll()
 ## For Library Developers
 
 1. [Publishing to NPM](readme/publishing.md)
+2. To preview all components locally, run `npm run build` and then `npm start`
