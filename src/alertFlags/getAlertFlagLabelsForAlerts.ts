@@ -1,6 +1,7 @@
-import { Alert, AlertsServiceAlert } from '../types/public/alertFlags/Alert'
-import { AlertFlagLabel } from '../types/public/alertFlags/AlertFlagLabel'
+import type { Alert, AlertsServiceAlert } from '../types/public/alertFlags/Alert'
+import type { AlertFlagLabel } from '../types/public/alertFlags/AlertFlagLabel'
 
+/** Alerts that need to be flagged prominently */
 export const alertFlagLabels: AlertFlagLabel[] = [
   { alertCodes: ['HA'], classes: 'dps-alert-status dps-alert-status--self-harm', label: 'ACCT open' },
   {
@@ -138,21 +139,19 @@ function isAlertsServiceAlert(alert: Alert): alert is AlertsServiceAlert {
   return typeof alert.alertCode !== 'string'
 }
 
+/** Returns alert flags that should be displayed prominently */
 export function getAlertFlagLabelsForAlerts(prisonerAlerts: Alert[]): AlertFlagLabel[] {
-  return alertFlagLabels.reduce(
-    (acc: AlertFlagLabel[], flag: { alertCodes: string[]; classes: string; label: string }) => {
-      const alertIds = prisonerAlerts
-        .filter(alert => {
-          const alertsServiceAlert = isAlertsServiceAlert(alert)
-          const alertIsActive = alertsServiceAlert ? alert.isActive : alert.active && !alert.expired
-          const prisonerAlertCode = alertsServiceAlert ? alert.alertCode.code : alert.alertCode
+  return alertFlagLabels.reduce((acc: AlertFlagLabel[], flag: AlertFlagLabel) => {
+    const alertIds = prisonerAlerts
+      .filter(alert => {
+        const alertsServiceAlert = isAlertsServiceAlert(alert)
+        const alertIsActive = alertsServiceAlert ? alert.isActive : alert.active && !alert.expired
+        const prisonerAlertCode = alertsServiceAlert ? alert.alertCode.code : alert.alertCode
 
-          return alertIsActive && flag.alertCodes.includes(prisonerAlertCode)
-        })
-        .map(alert => (isAlertsServiceAlert(alert) ? (alert.alertUuid as string) : alert.alertCode))
+        return alertIsActive && flag.alertCodes.includes(prisonerAlertCode)
+      })
+      .map(alert => (isAlertsServiceAlert(alert) ? (alert.alertUuid as string) : alert.alertCode))
 
-      return alertIds.length ? [...acc, { ...flag, alertIds }] : acc
-    },
-    [] as AlertFlagLabel[],
-  )
+    return alertIds.length ? [...acc, { ...flag, alertIds }] : acc
+  }, [])
 }
