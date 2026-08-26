@@ -60,6 +60,8 @@
   color: black;
   background-color: white;
 
+  // NB: styles for alert types should have a matching entry in AlertType enumeration
+
   &--care-leaver {
     @include alertType(#00703c, #03532e);
   }
@@ -96,7 +98,7 @@
     @include alertType(#2ea01c, #26711a);
   }
 
-
+  // NB: styles below are deprecated
 
   &--acct {
     @include alertType(#d34700);
