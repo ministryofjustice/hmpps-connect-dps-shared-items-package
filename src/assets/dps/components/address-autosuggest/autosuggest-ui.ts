@@ -144,26 +144,22 @@ export default class AutosuggestUi {
 
   private handleKeydown(event: KeyboardEvent): void {
     // eslint-disable-next-line default-case
-    switch (event.keyCode) {
-      case 38: {
-        // Up
+    switch (event.key) {
+      case 'ArrowUp': {
         event.preventDefault()
         this.navigateResults(-1)
         break
       }
-      case 40: {
-        // Down
+      case 'ArrowDown': {
         event.preventDefault()
         this.navigateResults(1)
         break
       }
-      case 27: {
-        // Escape
+      case 'Escape': {
         this.clearListbox()
         break
       }
-      case 13: {
-        // Enter
+      case 'Enter': {
         if (this.highlightedResultIndex !== null) {
           event.preventDefault()
         }
@@ -174,15 +170,13 @@ export default class AutosuggestUi {
 
   private handleKeyup(event: KeyboardEvent): void {
     // eslint-disable-next-line default-case
-    switch (event.keyCode) {
-      // Up and down
-      case 40:
-      case 38: {
+    switch (event.key) {
+      case 'ArrowUp':
+      case 'ArrowDown': {
         event.preventDefault()
         break
       }
-      case 13: {
-        // Enter
+      case 'Enter': {
         if (this.highlightedResultIndex !== null) {
           this.selectResult()
         }
