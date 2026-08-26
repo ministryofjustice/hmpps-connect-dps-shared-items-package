@@ -62,6 +62,7 @@ const osPlacesAddressService = new OsPlacesAddressService(logger, osPlacesApiCli
 
 // simple router setup:
 // the path can be customised, see below
+// NB: the returned JSON is expected to satisfy the AddressAutosuggestResponse type
 router.get('/api/addresses/find/:query', async (req: Request, res: Response) => {
   try {
     const results = await osPlacesAddressService.getAddressesMatchingQuery(req.params.query)

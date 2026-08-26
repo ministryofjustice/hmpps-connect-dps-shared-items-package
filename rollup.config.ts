@@ -8,6 +8,7 @@ import scss from 'rollup-plugin-scss'
 import pkg from './package.json'
 
 export default [
+  // build server-side js and copy static client-side assets
   {
     input: ['src/index.ts', 'src/types/**/*.ts', '!**/*test*', '!src/assets'],
     output: [
@@ -28,8 +29,9 @@ export default [
     ],
     external: [...Object.keys(pkg.dependencies || {})],
   },
+  // build client-side js
   {
-    input: 'src/assets/js/all.js',
+    input: 'src/assets/js/all.ts',
     output: {
       dir: 'dist/assets',
       format: 'esm',
@@ -43,6 +45,7 @@ export default [
       }),
     ],
   },
+  // build client-side css
   {
     input: 'dist/assets/scss/all.ts',
     output: { file: 'dist/assets/scss/all.js', format: 'cjs' },
@@ -55,6 +58,7 @@ export default [
       },
     ],
   },
+  // build server-side types
   {
     input: 'dist/types/public/**/*.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
