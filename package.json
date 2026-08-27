@@ -26,7 +26,7 @@
     "precommit:lint": "lint-staged",
     "precommit:verify": "npm run typecheck && npm test",
     "setup": "npm ci && hmpps-npm-script-run-allowlist",
-    "start": "node --experimental-strip-types preview/preview.mts"
+    "start": "node --experimental-strip-types preview/server.mts"
   },
   "lint-staged": {
     "*.{ts,css}": [
