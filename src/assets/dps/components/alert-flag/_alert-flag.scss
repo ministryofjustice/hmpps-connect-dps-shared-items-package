@@ -1,6 +1,7 @@
 @use "sass:color";
 @use "sass:selector";
 @use "govuk-frontend/dist/govuk/helpers/colour";
+@use "govuk-frontend/dist/govuk/helpers/typography";
 
 @mixin unify-parent($child) {
   @at-root #{selector.unify(&, $child)} {
@@ -14,11 +15,11 @@
     border: 3px solid;
     padding: 5px 10px;
     height: initial;
-    font-size: 16px;
     text-align: center;
     line-height: 1;
     user-select: none;
     border-radius: 5px;
+    @include typography.govuk-font($size: 16);
   }
 
   @media print {
