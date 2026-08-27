@@ -71,7 +71,7 @@
     "rollup-plugin-copy": "3.5.0",
     "rollup-plugin-dts": "6.5.1",
     "rollup-plugin-scss": "4.0.1",
-    "sass": "1.102.0",
+    "sass": "1.103.0",
     "ts-jest": "29.4.12",
     "tslib": "^2.8.1",
     "typescript": "6.0.3"
