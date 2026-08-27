@@ -10,7 +10,7 @@ import pkg from './package.json'
 export default [
   // build server-side js and copy static client-side assets
   {
-    input: ['src/index.ts', 'src/types/**/*.ts', '!**/*test*', '!src/assets'],
+    input: ['src/index.ts', 'src/types/**/*.ts', '!**/*test*'],
     output: [
       { file: pkg.main, format: 'cjs', sourcemap: true },
       { file: pkg.module, format: 'esm', sourcemap: true },
@@ -33,10 +33,10 @@ export default [
   {
     input: 'src/assets/js/all.ts',
     output: {
-      dir: 'dist/assets',
+      dir: 'dist',
       format: 'esm',
       preserveModules: true,
-      preserveModulesRoot: 'src/assets',
+      preserveModulesRoot: 'src',
     },
     plugins: [
       typescript({
@@ -53,12 +53,17 @@ export default [
       scss({ fileName: 'all.css' }),
       {
         name: 'cleanup',
-        closeBundle: () =>
-          Promise.all(['dist/assets/scss/all.js', 'dist/assets/scss/all.ts'].map(path => fs.rm(path, { force: true }))),
+        async writeBundle() {
+          await Promise.all(
+            ['dist/assets/scss/all.js', 'dist/assets/scss/all.ts', 'dist/assets/scss/all.d.ts'].map(path =>
+              fs.rm(path, { force: true }),
+            ),
+          )
+        },
       },
     ],
   },
-  // build server-side types
+  // bundle server-side types
   {
     input: 'dist/types/public/**/*.d.ts',
     output: [{ file: 'dist/index.d.ts', format: 'esm' }],
