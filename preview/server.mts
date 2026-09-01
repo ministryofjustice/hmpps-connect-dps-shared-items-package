@@ -5,20 +5,21 @@ import nunjucks from 'nunjucks'
 import { rollup } from 'rollup'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
 import * as sass from 'sass'
+import type { AddressAutosuggestResponse } from '../dist/types/public/addressAutosuggest/addressAutosuggestResponse'
 // @ts-expect-error ESM doesn’t support directory import so typescript cannot find type declarations
 // eslint-disable-next-line import/extensions
 import { getAlertFlagLabelsForAlerts } from '../dist/index.esm.js'
 
-const { css } = sass.compile('preview/shared-items.scss', {
+const { css } = sass.compile('preview/client.scss', {
   loadPaths: ['.', 'node_modules'],
 })
 
 const js = (
   await (
     await rollup({
-      input: 'preview/shared-items.js',
+      input: 'preview/client.js',
       plugins: [nodeResolve({ preferBuiltins: true })],
-      output: { format: 'cjs' },
+      output: { format: 'esm' },
     })
   ).generate({})
 ).output[0].code
@@ -31,7 +32,7 @@ const html = nunjucks
     'node_modules/@ministryofjustice/frontend/',
     'dist/assets/',
   ])
-  .render('shared-items.njk', {
+  .render('client.njk', {
     prisonerNumber,
     alerts: getAlertFlagLabelsForAlerts(
       [
@@ -68,10 +69,10 @@ const server = http.createServer(async (req, res) => {
   if (path === '/') {
     res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' })
     res.end(html)
-  } else if (path === '/shared-items.css') {
+  } else if (path === '/client.css') {
     res.writeHead(200, { 'content-type': 'text/css; charset=utf-8' })
     res.end(css)
-  } else if (path === '/shared-items.js') {
+  } else if (path === '/client.js') {
     res.writeHead(200, { 'content-type': 'application/javascript; charset=utf-8' })
     res.end(js)
   } else if (path === '/slow-modal-html') {
@@ -80,9 +81,21 @@ const server = http.createServer(async (req, res) => {
       res.end('<p>Content loaded from url.</p>')
     }, 3000)
   } else if (path.startsWith('/api/addresses/find/')) {
-    const query = path.slice('/api/addresses/find/'.length)
-    res.writeHead(200, { 'content-type': 'application/json; charset=utf-8' })
-    res.end(JSON.stringify({ status: 200, results: [{ uprn: '12345678', addressString: `Address with ${query}` }] }))
+    const query = decodeURIComponent(path.slice('/api/addresses/find/'.length))
+    let response: AddressAutosuggestResponse = {
+      status: 200,
+      results: [],
+    }
+    if (query.toLowerCase().trim() === 'error') {
+      response = { status: 400, error: 'Bad Request' }
+    } else if (query.toLowerCase().trim() === 'petty france') {
+      response.results.push(
+        { uprn: 12345678, addressString: '70 Petty France, London' },
+        { uprn: 12345679, addressString: '102 Petty France, London' },
+      )
+    }
+    res.writeHead(response.status, { 'content-type': 'application/json; charset=utf-8' })
+    res.end(JSON.stringify(response))
   } else if (path === '/api/report-error') {
     process.stderr.write('Query parameters:\n')
     process.stderr.write(util.inspect(params))

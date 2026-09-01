@@ -1,5 +1,0 @@
-@use 'govuk-frontend/dist/govuk' as * with (
-  $govuk-global-styles: true,
-);
-// @use '@ministryofjustice/frontend/moj/all' as *;
-@use '../dist/assets/scss/all';

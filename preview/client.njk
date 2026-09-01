@@ -7,7 +7,7 @@
 {% from "dps/components/webcam-capture/macro.njk" import hmppsWebcamCapture %}
 
 {% block head %}
-  <link href="/shared-items.css" rel="stylesheet"/>
+  <link href="/client.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block content %}
@@ -20,6 +20,7 @@
       <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
 
       <h2 class="govuk-heading-l">Address autosuggest</h2>
+      <p>Try typing “Petty France” or “Error”.</p>
       {{ addressAutosuggest({
         findUrl: '/api/addresses/find'
       }) }}
@@ -27,13 +28,20 @@
       <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible" />
 
       <h2 class="govuk-heading-l">Alert flags</h2>
+      <h3 class="govuk-heading-s">With links</h3>
       {% for alert in alerts %}
         {{ alertFlag({
           alert: alert,
-          href: "#",
+          href: "/",
           attributes: {
             "data-prisoner-number": prisonNumber
           }
+        }) }}
+      {% endfor %}
+      <h3 class="govuk-heading-s">Without links</h3>
+      {% for alert in alerts %}
+        {{ alertFlag({
+          alert: alert
         }) }}
       {% endfor %}
 
@@ -100,5 +108,5 @@
 {% endblock %}
 
 {% block bodyEnd %}
-  <script type="module" src="/shared-items.js"></script>
+  <script type="module" src="/client.js"></script>
 {% endblock %}

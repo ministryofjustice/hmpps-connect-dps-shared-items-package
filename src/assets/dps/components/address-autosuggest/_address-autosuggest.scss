@@ -1,8 +1,13 @@
 @use "govuk-frontend/dist/govuk/helpers/colour";
+@use "govuk-frontend/dist/govuk/helpers/typography";
 
 .hmpps-address-autosuggest {
     position: relative;
     max-width: 630px;
+
+    .hmpps-display-none {
+      display: none;
+    }
 
     .govuk-form-group {
         margin-bottom: 10px;
@@ -27,6 +32,7 @@
         background: colour.govuk-colour("black", $variant: "tint-95");
         border-bottom: 1px solid colour.govuk-functional-colour(border);
         padding: 0.25rem 0.5rem;
+        @include typography.govuk-font($size: 19);
     }
 
     &__listbox {
@@ -37,6 +43,7 @@
         &:focus {
             outline: none;
         }
+        @include typography.govuk-font($size: 19);
     }
 
     &__option {
