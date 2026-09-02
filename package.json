@@ -77,7 +77,7 @@
     "typescript": "6.0.3"
   },
   "dependencies": {
-    "@ministryofjustice/frontend": "10.0.1",
+    "@ministryofjustice/frontend": "11.0.0",
     "@ministryofjustice/hmpps-rest-client": "2.2.0",
     "@types/bunyan": "^1.8.11",
     "fuse.js": "7.5.0",
