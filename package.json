@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/hmpps-connect-dps-shared-items",
-  "version": "5.2.1",
+  "version": "5.3.0",
   "description": "A package to share Connect DPS functionality across applications",
   "main": "./dist/index.cjs",
   "module": "./dist/index.esm.js",
@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@ministryofjustice/eslint-config-hmpps": "2.0.0-alpha.2",
+    "@ministryofjustice/frontend": "11.1.0",
     "@ministryofjustice/frontend-types": "2.0.2",
     "@ministryofjustice/hmpps-precommit-hooks": "3.0.2",
     "@rollup/plugin-commonjs": "^29.0.3",
@@ -76,15 +77,14 @@
     "typescript": "6.0.3"
   },
   "dependencies": {
-    "@ministryofjustice/frontend": "11.1.0",
     "@ministryofjustice/hmpps-rest-client": "2.2.0",
     "@types/bunyan": "^1.8.11",
     "fuse.js": "7.5.0",
     "superagent": "10.3.0"
   },
   "peerDependencies": {
-    "@ministryofjustice/frontend": "10 || 11",
-    "govuk-frontend": "^6"
+    "@ministryofjustice/frontend": ">=10",
+    "govuk-frontend": ">=6.2"
   },
   "overrides": {
     "brace-expansion": "5.0.9"
