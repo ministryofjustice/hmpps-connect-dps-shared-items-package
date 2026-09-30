@@ -1,7 +1,8 @@
 # hmpps-connect-dps-shared-items
 
-[![repo standards badge](https://img.shields.io/badge/endpoint.svg?&style=flat&logo=github&url=https%3A%2F%2Foperations-engineering-reports.cloud-platform.service.justice.gov.uk%2Fapi%2Fv1%2Fcompliant_public_repositories%2Fhmpps-connect-dps-shared-items-package)](https://operations-engineering-reports.cloud-platform.service.justice.gov.uk/public-report/hmpps-connect-dps-shared-items-package "Link to report")
+[![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/hmpps-connect-dps-shared-items-package/badge?style=flat)](https://github-community.service.justice.gov.uk/repository-standards/hmpps-connect-dps-shared-items-package)
 [![Test, lint & publish](https://github.com/ministryofjustice/hmpps-connect-dps-shared-items-package/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/ministryofjustice/hmpps-connect-dps-shared-items-package/actions/workflows/pipeline.yml)
+![NPM version](https://img.shields.io/npm/v/%40ministryofjustice%2Fhmpps-connect-dps-shared-items)
 
 A library for sharing DPS Components across applications.
 
@@ -30,7 +31,7 @@ Add the `hmpps-connect-dps-shared-items` assets directory to nunjucks configurat
 const njkEnv = nunjucks.configure(
   [
     path.join(__dirname, '../../server/views'),
-    ...,
+    // ...,
     'node_modules/@ministryofjustice/hmpps-connect-dps-shared-items/dist/assets/',
   ],
   {
@@ -48,11 +49,11 @@ then import the component into your nunjucks file:
 ### Styling
 Include the package scss within the `index.scss` file. You can either import all:
 ```scss
-@import 'node_modules/@ministryofjustice/hmpps-connect-dps-shared-items/dist/assets/scss/all';
+@use 'node_modules/@ministryofjustice/hmpps-connect-dps-shared-items/dist/assets/scss/all';
 ```
 or import the specific component scss you are using, e.g:
 ```scss
-@import 'node_modules/@ministryofjustice/hmpps-connect-dps-shared-items/dist/assets/dps/components/alert-flag/alert-flag';
+@use 'node_modules/@ministryofjustice/hmpps-connect-dps-shared-items/dist/assets/dps/components/alert-flag/alert-flag';
 ```
 
 ### Client side javascript
