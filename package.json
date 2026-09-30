@@ -80,14 +80,14 @@
     "@ministryofjustice/hmpps-rest-client": "2.2.0",
     "@types/bunyan": "^1.8.11",
     "fuse.js": "7.5.0",
-    "superagent": "10.3.0"
+    "superagent": "10.4.0"
   },
   "peerDependencies": {
     "@ministryofjustice/frontend": ">=10",
     "govuk-frontend": ">=6.2"
   },
   "overrides": {
-    "brace-expansion": "5.0.9"
+    "brace-expansion": ">=5.0.12"
   },
   "allowScripts": {
     "@parcel/watcher@2.6.0": true,
