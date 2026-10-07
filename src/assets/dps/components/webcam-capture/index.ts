@@ -66,8 +66,8 @@ function hmppsWebcamCapture(component: HTMLElement): Promise<void> {
       photoCaptureContainer.style.display = 'none'
       photoCaptureErrorContainer.style.display = 'block'
       if (enableReporting) {
-        // @ts-expect-error error type is not known
-        const error = 'name' in e ? e.name : e.message
+        const error =
+          (e && typeof e === 'object' && (('name' in e && e.name) || ('message' in e && e.message))) ?? 'Unknown'
         // eslint-disable-next-line no-restricted-globals
         await fetch(`/api/report-error?pageUrl=${encodeURIComponent(location.href)}&error=${error}`, {
           method: 'GET',
