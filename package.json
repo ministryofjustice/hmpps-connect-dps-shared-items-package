@@ -50,7 +50,7 @@
   "devDependencies": {
     "@ministryofjustice/eslint-config-hmpps": "2.0.0-alpha.2",
     "@ministryofjustice/frontend": "11.1.0",
-    "@ministryofjustice/frontend-types": "2.0.2",
+    "@ministryofjustice/frontend-types": "2.0.3",
     "@ministryofjustice/hmpps-precommit-hooks": "3.0.2",
     "@rollup/plugin-commonjs": "^29.0.3",
     "@rollup/plugin-multi-entry": "^7.1.0",
@@ -71,7 +71,7 @@
     "rollup-plugin-copy": "3.5.0",
     "rollup-plugin-dts": "6.5.1",
     "rollup-plugin-scss": "4.0.1",
-    "sass": "1.105.0",
+    "sass": "1.105.1",
     "ts-jest": "29.4.14",
     "tslib": "^2.8.1",
     "typescript": "6.0.3"
