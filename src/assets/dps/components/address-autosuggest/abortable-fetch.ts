@@ -1,5 +1,5 @@
-// Based on ONSDigital's https://github.com/ONSdigital/design-system/blob/main/src/js/abortable-fetch.js
 /* eslint-disable max-classes-per-file, @stylistic/lines-between-class-members */
+// Based on ONSDigital's https://github.com/ONSdigital/design-system/blob/main/src/js/abortable-fetch.js
 
 export const FetchStatus = {
   unsent: 'UNSENT',
