@@ -1,6 +1,5 @@
 import { AutosuggestAddress } from './autosuggest-address'
 
-// eslint-disable-next-line import/prefer-default-export
 export function init() {
   // Setup all address autosuggest instances:
   document

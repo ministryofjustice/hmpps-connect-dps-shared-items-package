@@ -156,7 +156,6 @@ function hmppsWebcamCapture(component: HTMLElement): Promise<void> {
   return pageInit()
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export function init(): void {
   const webcamContainer = document.getElementById('hmpps-webcam-capture-component')
   if (webcamContainer) {

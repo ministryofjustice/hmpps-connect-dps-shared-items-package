@@ -1,5 +1,5 @@
 // Based on ONSDigital's https://github.com/ONSdigital/design-system/blob/main/src/components/address-input/autosuggest.address.js
-/* eslint-disable import/prefer-default-export, @stylistic/lines-between-class-members */
+/* eslint-disable @stylistic/lines-between-class-members */
 
 import type { AddressAutosuggestResponse } from '../../../../types/public/addressAutosuggest/addressAutosuggestResponse'
 import type { OsAddress } from '../../../../types/public/addressAutosuggest/osAddress'

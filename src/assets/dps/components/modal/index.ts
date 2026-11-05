@@ -1,4 +1,4 @@
-/* eslint-disable import/prefer-default-export, @stylistic/lines-between-class-members */
+/* eslint-disable @stylistic/lines-between-class-members */
 
 /** Modal dialogue box component */
 export class Modal {
