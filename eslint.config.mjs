@@ -1,5 +1,12 @@
 import hmppsConfig from '@ministryofjustice/eslint-config-hmpps'
 
-export default hmppsConfig({
-  extraPathsAllowingDevDependencies: ['jest.config.mjs', 'rollup.config.ts', 'preview/*'],
-})
+export default [
+  ...hmppsConfig({
+    extraPathsAllowingDevDependencies: ['jest.config.mjs', 'rollup.config.ts', 'preview/*'],
+  }),
+  {
+    rules: {
+      'import-x/prefer-default-export': 'off',
+    },
+  },
+]

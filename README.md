@@ -2,7 +2,7 @@
 
 [![Ministry of Justice Repository Compliance Badge](https://github-community.service.justice.gov.uk/repository-standards/api/hmpps-connect-dps-shared-items-package/badge?style=flat)](https://github-community.service.justice.gov.uk/repository-standards/hmpps-connect-dps-shared-items-package)
 [![Test, lint & publish](https://github.com/ministryofjustice/hmpps-connect-dps-shared-items-package/actions/workflows/pipeline.yml/badge.svg?branch=main)](https://github.com/ministryofjustice/hmpps-connect-dps-shared-items-package/actions/workflows/pipeline.yml)
-![NPM version](https://img.shields.io/npm/v/%40ministryofjustice%2Fhmpps-connect-dps-shared-items)
+[![NPM version](https://img.shields.io/npm/v/%40ministryofjustice%2Fhmpps-connect-dps-shared-items)](https://www.npmjs.com/package/@ministryofjustice/hmpps-connect-dps-shared-items)
 
 A library for sharing DPS Components across applications.
 

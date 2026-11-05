@@ -60,7 +60,7 @@ export default class OsPlacesApiClient {
       return result.body
     } catch (error) {
       const errorMessage = error && typeof error === 'object' && 'message' in error ? error.message : error
-      throw Error(`Error calling OS Places API: ${errorMessage}`)
+      throw Error(`Error calling OS Places API: ${errorMessage}`, { cause: error })
     }
   }
 }

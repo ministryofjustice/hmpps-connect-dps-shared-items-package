@@ -7,7 +7,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve'
 import * as sass from 'sass'
 import type { AddressAutosuggestResponse } from '../dist/types/public/addressAutosuggest/addressAutosuggestResponse'
 // @ts-expect-error ESM doesn’t support directory import so typescript cannot find type declarations
-// eslint-disable-next-line import/extensions
+// eslint-disable-next-line import-x/extensions
 import { getAlertFlagLabelsForAlerts } from '../dist/index.esm.js'
 
 const { css } = sass.compile('preview/client.scss', {
