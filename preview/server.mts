@@ -25,40 +25,12 @@ const js = (
 ).output[0].code
 
 const prisonerNumber = 'A1234AA'
-const html = nunjucks
-  .configure([
-    'preview',
-    'node_modules/govuk-frontend/dist/',
-    'node_modules/@ministryofjustice/frontend/',
-    'dist/assets/',
-  ])
-  .render('client.njk', {
-    prisonerNumber,
-    alerts: getAlertFlagLabelsForAlerts(
-      [
-        {
-          alertTypeCode: 'F',
-          alertTypeDescription: 'Ex Armed Forces',
-          code: 'F1',
-          description: 'Armed Forces Veteran',
-        },
-        {
-          alertTypeCode: 'M',
-          alertTypeDescription: 'Medical',
-          code: 'HID',
-          description: 'Hidden disability',
-        },
-      ].map(alertCode => ({
-        alertUuid: '01a02e89-7c79-705c-883a-9723e7d2cb83',
-        prisonNumber: prisonerNumber,
-        alertCode,
-        description: 'Alert',
-        activeFrom: '2026-01-01',
-        isActive: true,
-        createdByDisplayName: 'OMS_OWNER',
-      })),
-    ),
-  })
+const njkEnv = nunjucks.configure([
+  'preview',
+  'node_modules/govuk-frontend/dist/',
+  'node_modules/@ministryofjustice/frontend/',
+  'dist/assets/',
+])
 
 const server = http.createServer(async (req, res) => {
   const [path, qs = ''] = (req.url || '').split('?')
@@ -68,6 +40,34 @@ const server = http.createServer(async (req, res) => {
 
   if (path === '/') {
     res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' })
+    const html = njkEnv.render('client.njk', {
+      pageTitle: 'Connect DPS shared items',
+      prisonerNumber,
+      alerts: getAlertFlagLabelsForAlerts(
+        [
+          {
+            alertTypeCode: 'F',
+            alertTypeDescription: 'Ex Armed Forces',
+            code: 'F1',
+            description: 'Armed Forces Veteran',
+          },
+          {
+            alertTypeCode: 'M',
+            alertTypeDescription: 'Medical',
+            code: 'HID',
+            description: 'Hidden disability',
+          },
+        ].map(alertCode => ({
+          alertUuid: '01a02e89-7c79-705c-883a-9723e7d2cb83',
+          prisonNumber: prisonerNumber,
+          alertCode,
+          description: 'Alert',
+          activeFrom: '2026-01-01',
+          isActive: true,
+          createdByDisplayName: 'OMS_OWNER',
+        })),
+      ),
+    })
     res.end(html)
   } else if (path === '/client.css') {
     res.writeHead(200, { 'content-type': 'text/css; charset=utf-8' })
@@ -131,5 +131,7 @@ const server = http.createServer(async (req, res) => {
     res.end('Not Found')
   }
 })
-process.stderr.write('Go to http://localhost:3000/\n')
-server.listen(3000)
+
+const port = process.env.PORT || 3000
+process.stderr.write(`Go to http://localhost:${port}/\n`)
+server.listen(port)
