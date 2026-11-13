@@ -1,16 +1,6 @@
-$govuk-global-styles: true;
-$path: '/assets/images/';
-$moj-page-width: 1170px;
-$govuk-page-width: $moj-page-width;
-
-@import 'govuk-frontend/dist/govuk';
-@import '@ministryofjustice/frontend/moj/all';
-@import '../dist/assets/scss/all';
-
-/* TODO: MoJ design system seems incompatible when GOV.UK design system is “with” customised
-@use 'govuk-frontend/dist/govuk' as * with (
+@use 'govuk-frontend/dist/govuk' with (
   $govuk-global-styles: true,
+  $govuk-page-width: 1170px,
 );
-@use '@ministryofjustice/frontend/moj/all' as *;
-@use '../dist/assets/scss/all' as *;
-*/
+@use '@ministryofjustice/frontend/moj/all';
+@use '../dist/assets/scss/all' as dps-shared-items;
