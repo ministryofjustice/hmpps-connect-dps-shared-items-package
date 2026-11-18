@@ -25,6 +25,10 @@ describe('osPlacesApiClient', () => {
     nock.cleanAll()
   })
 
+  afterAll(() => {
+    nock.restore()
+  })
+
   describe('getAddressesByFreeTextQuery', () => {
     it('should return data from api', async () => {
       fakeOsPlaceApi

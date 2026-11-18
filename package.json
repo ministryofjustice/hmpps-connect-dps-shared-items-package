@@ -1,6 +1,6 @@
 {
   "name": "@ministryofjustice/hmpps-connect-dps-shared-items",
-  "version": "5.3.3",
+  "version": "6.0.0",
   "description": "A package to share Connect DPS functionality across applications",
   "main": "./dist/index.cjs",
   "module": "./dist/index.esm.js",
@@ -10,13 +10,13 @@
     "dist/**/*"
   ],
   "engines": {
-    "node": "22 || 24 || 26"
+    "node": "24 || 26"
   },
   "scripts": {
     "build": "rollup -c rollup.config.ts --bundleConfigAsCjs",
     "clean": "rm -rf ./dist/",
-    "test": "jest",
-    "test:ci": "jest --runInBand",
+    "test": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest",
+    "test:ci": "NODE_OPTIONS=\"$NODE_OPTIONS --experimental-vm-modules\" npx jest --runInBand",
     "typecheck": "tsc && tsc -p src/assets",
     "lint": "eslint . --cache --max-warnings 0",
     "lint:fix": "eslint . --cache --max-warnings 0 --fix",
@@ -65,7 +65,7 @@
     "jest-html-reporter": "^4.4.0",
     "jest-junit": "^17.0.0",
     "lint-staged": "^17.2.0",
-    "nock": "14.0.17",
+    "nock": "15.0.6",
     "nunjucks": "3.2.4",
     "rollup": "4.68.2",
     "rollup-plugin-copy": "3.5.0",
