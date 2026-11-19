@@ -56,7 +56,7 @@
     "@rollup/plugin-multi-entry": "^7.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-typescript": "^12.3.0",
-    "@tsconfig/node26": "26.0.1",
+    "@tsconfig/node26": "26.0.2",
     "@types/jest": "^30.0.0",
     "@types/nunjucks": "3.2.6",
     "@types/superagent": "^8.1.11",
